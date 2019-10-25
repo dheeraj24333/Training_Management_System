@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b91069321b4f43b88e9ac7b4fa795147" Name="Diagram1">
+        <EntityTypeShape EntityType="training_management_systemModel.attendance" Width="1.5" PointX="5.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="training_management_systemModel.class_management" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="training_management_systemModel.company_employee" Width="1.5" PointX="3" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="training_management_systemModel.course_management" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="training_management_systemModel.course_registration" Width="1.5" PointX="8.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="training_management_systemModel.instructor" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="training_management_systemModel.manager" Width="1.5" PointX="0.75" PointY="11.875" IsExpanded="true" />
+        <AssociationConnector Association="training_management_systemModel.FK__attendanc__class__5EBF139D" ManuallyRouted="false" />
+        <AssociationConnector Association="training_management_systemModel.FK__attendanc__user___5DCAEF64" ManuallyRouted="false" />
+        <AssociationConnector Association="training_management_systemModel.FK__class_man__class__534D60F1" ManuallyRouted="false" />
+        <AssociationConnector Association="training_management_systemModel.FK__class_man__cours__52593CB8" ManuallyRouted="false" />
+        <AssociationConnector Association="training_management_systemModel.FK__course_re__class__628FA481" ManuallyRouted="false" />
+        <AssociationConnector Association="training_management_systemModel.FK__company_e__manag__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="training_management_systemModel.FK__course_re__user___619B8048" ManuallyRouted="false" />
+        <AssociationConnector Association="training_management_systemModel.FK__course_re__manag__6383C8BA" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

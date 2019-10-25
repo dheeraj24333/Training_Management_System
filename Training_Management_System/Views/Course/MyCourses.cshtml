@@ -1,0 +1,88 @@
+﻿@model IEnumerable<Training_Management_System.Models.course_registration_view_model>
+
+@{
+    ViewBag.Title = "MyCourses";
+}
+<head>
+    <style>
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            width: 90%;
+            margin-left:5%;
+            margin-top:2.5%;
+        }
+
+            .card:hover {
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            }
+
+        .container {
+            padding: 2px 16px;
+        }
+    </style>
+</head>
+
+<div class="card">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>My Courses</h2>
+
+                <hr />
+                <br />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Category</th>
+                            <th>Duration(hrs)</th>
+                            <th>Class Room Name</th>
+                            <th>Start Date </th>
+                            <th>End Date</th>
+
+                        </tr>
+                    </thead>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.course_name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.course_type)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.course_category)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.course_duration)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.class_name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.class_start_date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.class_end_date)
+                            </td>
+
+                        </tr>
+                    }
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

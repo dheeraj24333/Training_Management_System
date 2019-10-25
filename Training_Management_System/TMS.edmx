@@ -1,0 +1,573 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="training_management_systemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="attendance">
+          <Key>
+            <PropertyRef Name="attendance_id" />
+          </Key>
+          <Property Name="attendance_id" Type="int" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="class_id" Type="int" />
+          <Property Name="present_date" Type="date" />
+        </EntityType>
+        <EntityType Name="class_management">
+          <Key>
+            <PropertyRef Name="class_id" />
+          </Key>
+          <Property Name="class_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="course_id" Type="int" />
+          <Property Name="class_instructor_id" Type="int" />
+          <Property Name="class_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="class_start_date" Type="date" />
+          <Property Name="class_end_date" Type="date" />
+          <Property Name="max_seats" Type="int" />
+          <Property Name="available_seats" Type="int" />
+          <Property Name="is_registration_active" Type="nvarchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="company_employee">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="100" />
+          <Property Name="password" Type="nvarchar" MaxLength="50" />
+          <Property Name="user_full_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="user_title" Type="nvarchar" MaxLength="50" />
+          <Property Name="user_department" Type="nvarchar" MaxLength="50" />
+          <Property Name="manager_id" Type="int" />
+          <Property Name="date_of_joining" Type="date" />
+          <Property Name="is_admin" Type="nvarchar" MaxLength="20" />
+          <Property Name="is_manager" Type="nvarchar" MaxLength="20" />
+          <Property Name="is_instructor" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="course_management">
+          <Key>
+            <PropertyRef Name="course_id" />
+          </Key>
+          <Property Name="course_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="course_name" Type="nvarchar" MaxLength="70" />
+          <Property Name="course_type" Type="nvarchar" MaxLength="70" />
+          <Property Name="course_category" Type="nvarchar" MaxLength="70" />
+          <Property Name="course_description" Type="nvarchar" MaxLength="300" />
+          <Property Name="course_duration" Type="int" />
+        </EntityType>
+        <EntityType Name="course_registration">
+          <Key>
+            <PropertyRef Name="registration_id" />
+          </Key>
+          <Property Name="registration_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="class_id" Type="int" />
+          <Property Name="manager_id" Type="int" />
+          <Property Name="status" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="instructor">
+          <Key>
+            <PropertyRef Name="instructor_id" />
+          </Key>
+          <Property Name="instructor_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="instructor_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="instructor_type" Type="nvarchar" MaxLength="50" />
+          <Property Name="instructor_contact" Type="nvarchar" MaxLength="10" />
+          <Property Name="additional_details" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="manager">
+          <Key>
+            <PropertyRef Name="manager_id" />
+          </Key>
+          <Property Name="manager_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="manager_name" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK__attendanc__class__5EBF139D">
+          <End Role="class_management" Type="Self.class_management" Multiplicity="0..1" />
+          <End Role="attendance" Type="Self.attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="class_management">
+              <PropertyRef Name="class_id" />
+            </Principal>
+            <Dependent Role="attendance">
+              <PropertyRef Name="class_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__attendanc__user___5DCAEF64">
+          <End Role="company_employee" Type="Self.company_employee" Multiplicity="0..1" />
+          <End Role="attendance" Type="Self.attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="company_employee">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="attendance">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__class_man__class__534D60F1">
+          <End Role="instructor" Type="Self.instructor" Multiplicity="0..1" />
+          <End Role="class_management" Type="Self.class_management" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="instructor">
+              <PropertyRef Name="instructor_id" />
+            </Principal>
+            <Dependent Role="class_management">
+              <PropertyRef Name="class_instructor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__class_man__cours__52593CB8">
+          <End Role="course_management" Type="Self.course_management" Multiplicity="0..1" />
+          <End Role="class_management" Type="Self.class_management" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course_management">
+              <PropertyRef Name="course_id" />
+            </Principal>
+            <Dependent Role="class_management">
+              <PropertyRef Name="course_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__company_e__manag__4BAC3F29">
+          <End Role="manager" Type="Self.manager" Multiplicity="0..1" />
+          <End Role="company_employee" Type="Self.company_employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="manager">
+              <PropertyRef Name="manager_id" />
+            </Principal>
+            <Dependent Role="company_employee">
+              <PropertyRef Name="manager_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__course_re__class__628FA481">
+          <End Role="class_management" Type="Self.class_management" Multiplicity="0..1" />
+          <End Role="course_registration" Type="Self.course_registration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="class_management">
+              <PropertyRef Name="class_id" />
+            </Principal>
+            <Dependent Role="course_registration">
+              <PropertyRef Name="class_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__course_re__manag__6383C8BA">
+          <End Role="manager" Type="Self.manager" Multiplicity="0..1" />
+          <End Role="course_registration" Type="Self.course_registration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="manager">
+              <PropertyRef Name="manager_id" />
+            </Principal>
+            <Dependent Role="course_registration">
+              <PropertyRef Name="manager_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__course_re__user___619B8048">
+          <End Role="company_employee" Type="Self.company_employee" Multiplicity="0..1" />
+          <End Role="course_registration" Type="Self.course_registration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="company_employee">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="course_registration">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="training_management_systemModelStoreContainer">
+          <EntitySet Name="attendance" EntityType="Self.attendance" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="class_management" EntityType="Self.class_management" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="company_employee" EntityType="Self.company_employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="course_management" EntityType="Self.course_management" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="course_registration" EntityType="Self.course_registration" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="instructor" EntityType="Self.instructor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="manager" EntityType="Self.manager" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__attendanc__class__5EBF139D" Association="Self.FK__attendanc__class__5EBF139D">
+            <End Role="class_management" EntitySet="class_management" />
+            <End Role="attendance" EntitySet="attendance" />
+          </AssociationSet>
+          <AssociationSet Name="FK__attendanc__user___5DCAEF64" Association="Self.FK__attendanc__user___5DCAEF64">
+            <End Role="company_employee" EntitySet="company_employee" />
+            <End Role="attendance" EntitySet="attendance" />
+          </AssociationSet>
+          <AssociationSet Name="FK__class_man__class__534D60F1" Association="Self.FK__class_man__class__534D60F1">
+            <End Role="instructor" EntitySet="instructor" />
+            <End Role="class_management" EntitySet="class_management" />
+          </AssociationSet>
+          <AssociationSet Name="FK__class_man__cours__52593CB8" Association="Self.FK__class_man__cours__52593CB8">
+            <End Role="course_management" EntitySet="course_management" />
+            <End Role="class_management" EntitySet="class_management" />
+          </AssociationSet>
+          <AssociationSet Name="FK__company_e__manag__4BAC3F29" Association="Self.FK__company_e__manag__4BAC3F29">
+            <End Role="manager" EntitySet="manager" />
+            <End Role="company_employee" EntitySet="company_employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__course_re__class__628FA481" Association="Self.FK__course_re__class__628FA481">
+            <End Role="class_management" EntitySet="class_management" />
+            <End Role="course_registration" EntitySet="course_registration" />
+          </AssociationSet>
+          <AssociationSet Name="FK__course_re__manag__6383C8BA" Association="Self.FK__course_re__manag__6383C8BA">
+            <End Role="manager" EntitySet="manager" />
+            <End Role="course_registration" EntitySet="course_registration" />
+          </AssociationSet>
+          <AssociationSet Name="FK__course_re__user___619B8048" Association="Self.FK__course_re__user___619B8048">
+            <End Role="company_employee" EntitySet="company_employee" />
+            <End Role="course_registration" EntitySet="course_registration" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="training_management_systemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="attendance">
+          <Key>
+            <PropertyRef Name="attendance_id" />
+          </Key>
+          <Property Name="attendance_id" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="class_id" Type="Int32" />
+          <Property Name="present_date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="class_management" Relationship="Self.FK__attendanc__class__5EBF139D" FromRole="attendance" ToRole="class_management" />
+          <NavigationProperty Name="company_employee" Relationship="Self.FK__attendanc__user___5DCAEF64" FromRole="attendance" ToRole="company_employee" />
+        </EntityType>
+        <EntityType Name="class_management">
+          <Key>
+            <PropertyRef Name="class_id" />
+          </Key>
+          <Property Name="class_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="course_id" Type="Int32" />
+          <Property Name="class_instructor_id" Type="Int32" />
+          <Property Name="class_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="class_start_date" Type="DateTime" Precision="0" />
+          <Property Name="class_end_date" Type="DateTime" Precision="0" />
+          <Property Name="max_seats" Type="Int32" />
+          <Property Name="available_seats" Type="Int32" />
+          <Property Name="is_registration_active" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="attendances" Relationship="Self.FK__attendanc__class__5EBF139D" FromRole="class_management" ToRole="attendance" />
+          <NavigationProperty Name="instructor" Relationship="Self.FK__class_man__class__534D60F1" FromRole="class_management" ToRole="instructor" />
+          <NavigationProperty Name="course_management" Relationship="Self.FK__class_man__cours__52593CB8" FromRole="class_management" ToRole="course_management" />
+          <NavigationProperty Name="course_registration" Relationship="Self.FK__course_re__class__628FA481" FromRole="class_management" ToRole="course_registration" />
+        </EntityType>
+        <EntityType Name="company_employee">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="user_full_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="user_title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="user_department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="manager_id" Type="Int32" />
+          <Property Name="date_of_joining" Type="DateTime" Precision="0" />
+          <Property Name="is_admin" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="is_manager" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="is_instructor" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="attendances" Relationship="Self.FK__attendanc__user___5DCAEF64" FromRole="company_employee" ToRole="attendance" />
+          <NavigationProperty Name="manager" Relationship="Self.FK__company_e__manag__4BAC3F29" FromRole="company_employee" ToRole="manager" />
+          <NavigationProperty Name="course_registration" Relationship="Self.FK__course_re__user___619B8048" FromRole="company_employee" ToRole="course_registration" />
+        </EntityType>
+        <EntityType Name="course_management">
+          <Key>
+            <PropertyRef Name="course_id" />
+          </Key>
+          <Property Name="course_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="course_name" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="course_type" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="course_category" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="course_description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="course_duration" Type="Int32" />
+          <NavigationProperty Name="class_management" Relationship="Self.FK__class_man__cours__52593CB8" FromRole="course_management" ToRole="class_management" />
+        </EntityType>
+        <EntityType Name="course_registration">
+          <Key>
+            <PropertyRef Name="registration_id" />
+          </Key>
+          <Property Name="registration_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="class_id" Type="Int32" />
+          <Property Name="manager_id" Type="Int32" />
+          <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="class_management" Relationship="Self.FK__course_re__class__628FA481" FromRole="course_registration" ToRole="class_management" />
+          <NavigationProperty Name="company_employee" Relationship="Self.FK__course_re__user___619B8048" FromRole="course_registration" ToRole="company_employee" />
+          <NavigationProperty Name="manager" Relationship="Self.FK__course_re__manag__6383C8BA" FromRole="course_registration" ToRole="manager" />
+        </EntityType>
+        <EntityType Name="instructor">
+          <Key>
+            <PropertyRef Name="instructor_id" />
+          </Key>
+          <Property Name="instructor_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="instructor_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="instructor_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="instructor_contact" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="additional_details" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="class_management" Relationship="Self.FK__class_man__class__534D60F1" FromRole="instructor" ToRole="class_management" />
+        </EntityType>
+        <EntityType Name="manager">
+          <Key>
+            <PropertyRef Name="manager_id" />
+          </Key>
+          <Property Name="manager_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="manager_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="company_employee" Relationship="Self.FK__company_e__manag__4BAC3F29" FromRole="manager" ToRole="company_employee" />
+          <NavigationProperty Name="course_registration" Relationship="Self.FK__course_re__manag__6383C8BA" FromRole="manager" ToRole="course_registration" />
+        </EntityType>
+        <Association Name="FK__attendanc__class__5EBF139D">
+          <End Role="class_management" Type="Self.class_management" Multiplicity="0..1" />
+          <End Role="attendance" Type="Self.attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="class_management">
+              <PropertyRef Name="class_id" />
+            </Principal>
+            <Dependent Role="attendance">
+              <PropertyRef Name="class_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__attendanc__user___5DCAEF64">
+          <End Role="company_employee" Type="Self.company_employee" Multiplicity="0..1" />
+          <End Role="attendance" Type="Self.attendance" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="company_employee">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="attendance">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__class_man__class__534D60F1">
+          <End Role="instructor" Type="Self.instructor" Multiplicity="0..1" />
+          <End Role="class_management" Type="Self.class_management" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="instructor">
+              <PropertyRef Name="instructor_id" />
+            </Principal>
+            <Dependent Role="class_management">
+              <PropertyRef Name="class_instructor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__class_man__cours__52593CB8">
+          <End Role="course_management" Type="Self.course_management" Multiplicity="0..1" />
+          <End Role="class_management" Type="Self.class_management" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="course_management">
+              <PropertyRef Name="course_id" />
+            </Principal>
+            <Dependent Role="class_management">
+              <PropertyRef Name="course_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__course_re__class__628FA481">
+          <End Role="class_management" Type="Self.class_management" Multiplicity="0..1" />
+          <End Role="course_registration" Type="Self.course_registration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="class_management">
+              <PropertyRef Name="class_id" />
+            </Principal>
+            <Dependent Role="course_registration">
+              <PropertyRef Name="class_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__company_e__manag__4BAC3F29">
+          <End Role="manager" Type="Self.manager" Multiplicity="0..1" />
+          <End Role="company_employee" Type="Self.company_employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="manager">
+              <PropertyRef Name="manager_id" />
+            </Principal>
+            <Dependent Role="company_employee">
+              <PropertyRef Name="manager_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__course_re__user___619B8048">
+          <End Role="company_employee" Type="Self.company_employee" Multiplicity="0..1" />
+          <End Role="course_registration" Type="Self.course_registration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="company_employee">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="course_registration">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__course_re__manag__6383C8BA">
+          <End Role="manager" Type="Self.manager" Multiplicity="0..1" />
+          <End Role="course_registration" Type="Self.course_registration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="manager">
+              <PropertyRef Name="manager_id" />
+            </Principal>
+            <Dependent Role="course_registration">
+              <PropertyRef Name="manager_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="training_management_systemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="attendances" EntityType="Self.attendance" />
+          <EntitySet Name="class_management" EntityType="Self.class_management" />
+          <EntitySet Name="company_employee" EntityType="Self.company_employee" />
+          <EntitySet Name="course_management" EntityType="Self.course_management" />
+          <EntitySet Name="course_registration" EntityType="Self.course_registration" />
+          <EntitySet Name="instructors" EntityType="Self.instructor" />
+          <EntitySet Name="managers" EntityType="Self.manager" />
+          <AssociationSet Name="FK__attendanc__class__5EBF139D" Association="Self.FK__attendanc__class__5EBF139D">
+            <End Role="class_management" EntitySet="class_management" />
+            <End Role="attendance" EntitySet="attendances" />
+          </AssociationSet>
+          <AssociationSet Name="FK__attendanc__user___5DCAEF64" Association="Self.FK__attendanc__user___5DCAEF64">
+            <End Role="company_employee" EntitySet="company_employee" />
+            <End Role="attendance" EntitySet="attendances" />
+          </AssociationSet>
+          <AssociationSet Name="FK__class_man__class__534D60F1" Association="Self.FK__class_man__class__534D60F1">
+            <End Role="instructor" EntitySet="instructors" />
+            <End Role="class_management" EntitySet="class_management" />
+          </AssociationSet>
+          <AssociationSet Name="FK__class_man__cours__52593CB8" Association="Self.FK__class_man__cours__52593CB8">
+            <End Role="course_management" EntitySet="course_management" />
+            <End Role="class_management" EntitySet="class_management" />
+          </AssociationSet>
+          <AssociationSet Name="FK__course_re__class__628FA481" Association="Self.FK__course_re__class__628FA481">
+            <End Role="class_management" EntitySet="class_management" />
+            <End Role="course_registration" EntitySet="course_registration" />
+          </AssociationSet>
+          <AssociationSet Name="FK__company_e__manag__4BAC3F29" Association="Self.FK__company_e__manag__4BAC3F29">
+            <End Role="manager" EntitySet="managers" />
+            <End Role="company_employee" EntitySet="company_employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK__course_re__user___619B8048" Association="Self.FK__course_re__user___619B8048">
+            <End Role="company_employee" EntitySet="company_employee" />
+            <End Role="course_registration" EntitySet="course_registration" />
+          </AssociationSet>
+          <AssociationSet Name="FK__course_re__manag__6383C8BA" Association="Self.FK__course_re__manag__6383C8BA">
+            <End Role="manager" EntitySet="managers" />
+            <End Role="course_registration" EntitySet="course_registration" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="training_management_systemModelStoreContainer" CdmEntityContainer="training_management_systemEntities">
+          <EntitySetMapping Name="attendances">
+            <EntityTypeMapping TypeName="training_management_systemModel.attendance">
+              <MappingFragment StoreEntitySet="attendance">
+                <ScalarProperty Name="attendance_id" ColumnName="attendance_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="class_id" ColumnName="class_id" />
+                <ScalarProperty Name="present_date" ColumnName="present_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="class_management">
+            <EntityTypeMapping TypeName="training_management_systemModel.class_management">
+              <MappingFragment StoreEntitySet="class_management">
+                <ScalarProperty Name="class_id" ColumnName="class_id" />
+                <ScalarProperty Name="course_id" ColumnName="course_id" />
+                <ScalarProperty Name="class_instructor_id" ColumnName="class_instructor_id" />
+                <ScalarProperty Name="class_name" ColumnName="class_name" />
+                <ScalarProperty Name="class_start_date" ColumnName="class_start_date" />
+                <ScalarProperty Name="class_end_date" ColumnName="class_end_date" />
+                <ScalarProperty Name="max_seats" ColumnName="max_seats" />
+                <ScalarProperty Name="available_seats" ColumnName="available_seats" />
+                <ScalarProperty Name="is_registration_active" ColumnName="is_registration_active" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="company_employee">
+            <EntityTypeMapping TypeName="training_management_systemModel.company_employee">
+              <MappingFragment StoreEntitySet="company_employee">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="user_full_name" ColumnName="user_full_name" />
+                <ScalarProperty Name="user_title" ColumnName="user_title" />
+                <ScalarProperty Name="user_department" ColumnName="user_department" />
+                <ScalarProperty Name="manager_id" ColumnName="manager_id" />
+                <ScalarProperty Name="date_of_joining" ColumnName="date_of_joining" />
+                <ScalarProperty Name="is_admin" ColumnName="is_admin" />
+                <ScalarProperty Name="is_manager" ColumnName="is_manager" />
+                <ScalarProperty Name="is_instructor" ColumnName="is_instructor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="course_management">
+            <EntityTypeMapping TypeName="training_management_systemModel.course_management">
+              <MappingFragment StoreEntitySet="course_management">
+                <ScalarProperty Name="course_id" ColumnName="course_id" />
+                <ScalarProperty Name="course_name" ColumnName="course_name" />
+                <ScalarProperty Name="course_type" ColumnName="course_type" />
+                <ScalarProperty Name="course_category" ColumnName="course_category" />
+                <ScalarProperty Name="course_description" ColumnName="course_description" />
+                <ScalarProperty Name="course_duration" ColumnName="course_duration" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="course_registration">
+            <EntityTypeMapping TypeName="training_management_systemModel.course_registration">
+              <MappingFragment StoreEntitySet="course_registration">
+                <ScalarProperty Name="registration_id" ColumnName="registration_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="class_id" ColumnName="class_id" />
+                <ScalarProperty Name="manager_id" ColumnName="manager_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="instructors">
+            <EntityTypeMapping TypeName="training_management_systemModel.instructor">
+              <MappingFragment StoreEntitySet="instructor">
+                <ScalarProperty Name="instructor_id" ColumnName="instructor_id" />
+                <ScalarProperty Name="instructor_name" ColumnName="instructor_name" />
+                <ScalarProperty Name="instructor_type" ColumnName="instructor_type" />
+                <ScalarProperty Name="instructor_contact" ColumnName="instructor_contact" />
+                <ScalarProperty Name="additional_details" ColumnName="additional_details" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="managers">
+            <EntityTypeMapping TypeName="training_management_systemModel.manager">
+              <MappingFragment StoreEntitySet="manager">
+                <ScalarProperty Name="manager_id" ColumnName="manager_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="manager_name" ColumnName="manager_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
