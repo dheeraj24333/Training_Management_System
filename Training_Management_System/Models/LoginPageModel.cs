@@ -9,6 +9,7 @@ namespace Training_Management_System.Models
 {
     public class LoginPageModel
     {
+
         [Required]
         public string UserName { get; set; }
         [Required]
