@@ -16,6 +16,7 @@
     }
 
     ViewBag.data = lst;
+    Layout = null;
 }
 
 <head>
@@ -26,6 +27,9 @@
 </head>
 
 <body>
+    <img src="~/Scripts/UserImages/communitybrands_logo.png" style="width : 22%;padding:20px 7px 2px 20px " />
+
+    <br /><br />
     <div class="container">
         <div style="margin-left:25%">
             <h2>Profile</h2>
@@ -47,7 +51,7 @@
 
                                     @Html.DropDownListFor(model => model.Title, new List<SelectListItem>
                                    { new SelectListItem{Text="Mr.", Value="Mr.",Selected =true },
-                                     new SelectListItem{Text="Ms", Value="Ms"}}, new { htmlAttributes = new { @class = "form-control" } })
+                                     new SelectListItem{Text="Ms", Value="Ms"}}, new { htmlAttributes = new { @class = "form-control",@required="required" } })
                                 </div>
 
                             </div>
@@ -63,7 +67,7 @@
                             </div>
                             <div class="col-md-4">
                                 <div class="Profile">
-                                    @Html.EditorFor(Model => Model.FullName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Your Full Name" } })
+                                    @Html.EditorFor(Model => Model.FullName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Enter Your Full Name",@required="required" } })
                                     @Html.ValidationMessageFor(Model => Model.FullName)
 
                                 </div>
@@ -85,7 +89,7 @@
                                     @Html.DropDownListFor(model => model.Department, new List<SelectListItem>
                                    { new SelectListItem{Text="R&D", Value="R&D",Selected =true },
                                    new SelectListItem{Text="HR", Value="HR" },
-                                     new SelectListItem{Text="Client Services", Value="Client Services"}}, new { htmlAttributes = new { @class = "form-control" } })
+                                     new SelectListItem{Text="Client Services", Value="Client Services"}}, new { htmlAttributes = new { @class = "form-control",@required="required" } })
                                 </div>
 
                             </div>
@@ -101,7 +105,7 @@
                             </div>
                             <div class="col-md-4">
 
-                                @Html.EditorFor(model => model.Date_Of_Joining, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.Date_Of_Joining, new { htmlAttributes = new { @class = "form-control",@required="required" } })
                                 @Html.ValidationMessageFor(model => model.Date_Of_Joining, "", new { @class = "text-danger" })
                                 <br>
                             </div>
@@ -117,7 +121,7 @@
                             </div>
                             <div class="col-md-4">
 
-                                @Html.DropDownList("ManagerId", ViewBag.data as List<SelectListItem>, new { htmlAttributes = new { @class = "dropdown" } })
+                                @Html.DropDownList("ManagerId", ViewBag.data as List<SelectListItem>, new { htmlAttributes = new { @class = "dropdown",@required="required" } })
 
 
                             </div>
