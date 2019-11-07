@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Dynamic;
 using System.Linq;
 using System.Web.Mvc;
 using Training_Management_System.Classes;
@@ -43,9 +44,48 @@ namespace Training_Management_System.Controllers
                 .Where(x => x.is_registration_active == "YES" & !classidarray.Contains(x.class_id)).Take(5);
             //  return View("GetListOfCourses", courseregistermodel);
 
-            return View(courseregistermodel);
-        }
+            dynamic mymodal = new ExpandoObject();
 
+
+
+
+            var notification_seen_id = entities.notification_seen.ToList().Where(x => x.user_id == user_id);
+            int[] notificationidarray = new int[notification_seen_id.Count()];
+
+            int j = 0;
+            foreach (var item in notification_seen_id)
+            {
+                notificationidarray[j] = item.not_id.Value;
+                j++;
+            }
+
+            IEnumerable<NotificationModal> notificationModal = entities.notifications.Select(n => new NotificationModal
+            {
+                not_id = n.not_id,
+                notice = n.notice,
+                tilldate = n.tilldate                
+            })
+            .Where(x => !notificationidarray.Contains(x.not_id));
+
+
+            mymodal.CourseRegisterModel = courseregistermodel;
+            mymodal.NotificationModal = notificationModal;
+
+
+            return View(mymodal);
+        }
+        [HttpGet]
+        public ActionResult isseen(int not_id)
+        {
+            training_management_systemEntities entities = new training_management_systemEntities();
+            notification_seen notification_Seen = new notification_seen();
+            int user_id = Convert.ToInt32(Session["user_id"].ToString());
+            notification_Seen.not_id = not_id;
+            notification_Seen.user_id = user_id;
+            entities.notification_seen.Add(notification_Seen);
+            entities.SaveChanges();
+            return RedirectToAction("Dashboard", "Dashboard");
+        }
         [HttpGet]
         public ActionResult ViewProfile()
         {

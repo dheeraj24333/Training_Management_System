@@ -20,6 +20,7 @@ namespace Training_Management_System
             this.attendances = new HashSet<attendance>();
             this.calender_events = new HashSet<calender_events>();
             this.course_registration = new HashSet<course_registration>();
+            this.notification_seen = new HashSet<notification_seen>();
         }
     
         public int user_id { get; set; }
@@ -41,5 +42,7 @@ namespace Training_Management_System
         public virtual manager manager { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<course_registration> course_registration { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<notification_seen> notification_seen { get; set; }
     }
 }

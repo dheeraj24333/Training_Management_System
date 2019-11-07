@@ -33,5 +33,7 @@ namespace Training_Management_System
         public virtual DbSet<course_registration> course_registration { get; set; }
         public virtual DbSet<instructor> instructors { get; set; }
         public virtual DbSet<manager> managers { get; set; }
+        public virtual DbSet<notification> notifications { get; set; }
+        public virtual DbSet<notification_seen> notification_seen { get; set; }
     }
 }
