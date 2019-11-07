@@ -18,7 +18,6 @@ namespace Training_Management_System
         public manager()
         {
             this.company_employee = new HashSet<company_employee>();
-            this.course_registration = new HashSet<course_registration>();
         }
     
         public int manager_id { get; set; }
@@ -27,7 +26,5 @@ namespace Training_Management_System
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<company_employee> company_employee { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<course_registration> course_registration { get; set; }
     }
 }

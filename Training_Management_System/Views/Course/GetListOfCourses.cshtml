@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Training_Management_System.Models.course_registration_view_model>
+﻿@model IEnumerable<Training_Management_System.Models.CourseRegisterModel>
 
 @{
     ViewBag.Title = "Upcomming Courses";
@@ -34,72 +34,90 @@
 
 <div class="card">
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h2>Available Courses</h2>
+        @if (Model != null)
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>Upcoming Trainings</h2>
 
-                <hr />
-                <br />
+                    <hr />
+                    <br />
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12">
 
-                <table class="table table-responsive">
-                    <thead>
-                        <tr>
-                            <th>Sr No.</th>
-                            <th>Name</th>
-                            <th>Type</th>
-                            <th>Category</th>
-                            <th>Duration(hrs)</th>
-                            <th>Class Room Name</th>
-                            <th>Start Date </th>
-                            <th>End Date</th>
-                            <th>Available Seats</th>
-                            <th>Apply to Register</th>
-                        </tr>
-                    </thead>
+                    <table class="table table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Course Name</th>
+                                <th>Type</th>
+                                <th>Category</th>
+                                <th>Duration(hrs)</th>
+                                <th>Class Name</th>
+                                <th>Start Date </th>
+                                <th>End Date</th>
+                                <th>Available Seats</th>
+                                <th>Click to Register</th>
+                            </tr>
+                        </thead>
 
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.course_id)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.course_name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.course_type)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.course_category)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.course_duration)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.class_name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.class_start_date)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.class_end_date)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.available_seats)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Register Now", "Register", new { id = item.class_id })
-                            </td>
-                        </tr>
-                    }
+                        @foreach (var item in Model)
+                        {
+                           if (Convert.ToDateTime(item.class_start_date) > DateTime.Today)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.course_name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.course_type)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.course_category)
+                                    </td>
+                                    <td>
+                                        <center>
+                                            @Html.DisplayFor(modelItem => item.course_duration)
+                                        </center>
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.class_name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.class_start_date)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.class_end_date)
+                                    </td>
+                                    <td>
+                                        <center>
+                                            @Html.DisplayFor(modelItem => item.available_seats)
+                                        </center>
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Register Now", "Register", new { id = item.class_id })
+                                    </td>
+                                </tr>
+                            }
 
-                </table>
+                        }
+
+                    </table>
+                </div>
             </div>
-        </div>
+
+
+        }
+        else
+        {
+            <div>
+
+                <h1>No records</h1>
+
+            </div>
+        }
+
 
     </div>
 </div>

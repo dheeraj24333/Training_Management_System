@@ -12,11 +12,11 @@ namespace Training_Management_System.Controllers
     {
         public ActionResult GetListOfCourses()
         {
+            
             training_management_systemEntities entities = new training_management_systemEntities();
-            course_registration_view_model crvm;
-            var model = entities.course_management
+            IEnumerable<CourseRegisterModel> courseregistermodel = entities.course_management
                 .Join(entities.class_management, u => u.course_id, uir => uir.course_id, (u, uir) => new { u, uir })
-                .Select(m => new course_registration_view_model
+                .Select(m => new CourseRegisterModel
                 {
                     course_id = m.u.course_id,
                     course_name = m.u.course_name,
@@ -25,31 +25,14 @@ namespace Training_Management_System.Controllers
                     course_duration = m.u.course_duration,
                     class_id = m.uir.class_id,
                     class_name = m.uir.class_name,
-                    class_start_date = m.uir.class_start_date,
-                    class_end_date = m.uir.class_end_date,
+                    class_start_date = m.uir.class_start_date.ToString(),
+                    class_end_date = m.uir.class_end_date.ToString(),
                     available_seats = m.uir.available_seats,
                     is_registration_active = m.uir.is_registration_active
-                });
-
-            List<course_registration_view_model> lst = new List<course_registration_view_model>();
-
-            foreach (var item in model)
-            {
-                crvm = new course_registration_view_model();
-                crvm.course_id = item.course_id;
-                crvm.course_name = item.course_name;
-                crvm.course_type = item.course_type;
-                crvm.course_category = item.course_category;
-                crvm.course_duration = item.course_duration;
-                crvm.class_id = item.class_id;
-                crvm.class_name = item.class_name;
-                crvm.class_start_date = item.class_start_date;
-                crvm.class_end_date = item.class_end_date;
-                crvm.available_seats = item.available_seats;
-                crvm.is_registration_active = item.is_registration_active;
-                lst.Add(crvm);
-            }
-            return View("GetListOfCourses", lst);
+                    
+                })
+                .Where(x => x.is_registration_active == "YES");
+            return View("GetListOfCourses", courseregistermodel);
         }
         
         public ActionResult Register(int id)
@@ -58,10 +41,9 @@ namespace Training_Management_System.Controllers
             int result = obj.courseregistration(id);
 
             training_management_systemEntities entities = new training_management_systemEntities();
-            course_registration_view_model crvm;
-            var model = entities.course_management
+            IEnumerable<CourseRegisterModel> courseregistermodel = entities.course_management
                 .Join(entities.class_management, u => u.course_id, uir => uir.course_id, (u, uir) => new { u, uir })
-                .Select(m => new course_registration_view_model
+                .Select(m => new CourseRegisterModel
                 {
                     course_id = m.u.course_id,
                     course_name = m.u.course_name,
@@ -70,40 +52,27 @@ namespace Training_Management_System.Controllers
                     course_duration = m.u.course_duration,
                     class_id = m.uir.class_id,
                     class_name = m.uir.class_name,
-                    class_start_date = m.uir.class_start_date,
-                    class_end_date = m.uir.class_end_date,
+                    class_start_date = m.uir.class_start_date.ToString(),
+                    class_end_date = m.uir.class_end_date.ToString(),
                     available_seats = m.uir.available_seats,
                     is_registration_active = m.uir.is_registration_active
-                });
-
-            List<course_registration_view_model> lst = new List<course_registration_view_model>();
-
-            foreach (var item in model)
-            {
-                crvm = new course_registration_view_model();
-                crvm.course_id = item.course_id;
-                crvm.course_name = item.course_name;
-                crvm.course_type = item.course_type;
-                crvm.course_category = item.course_category;
-                crvm.course_duration = item.course_duration;
-                crvm.class_id = item.class_id;
-                crvm.class_name = item.class_name;
-                crvm.class_start_date = item.class_start_date;
-                crvm.class_end_date = item.class_end_date;
-                crvm.available_seats = item.available_seats;
-                crvm.is_registration_active = item.is_registration_active;
-                lst.Add(crvm);
-            }
+                })
+                .Where(x => x.is_registration_active == "YES"); 
 
             if (result == 0)
             {
                 ViewBag.Message = "You have  already registered for this course...";
-                return View("GetListOfCourses", lst);
+                return View("GetListOfCourses", courseregistermodel);
             }
             else if (result == 1)
             {
                 ViewBag.Message = "You have  registered for this course successfully...";
-                return View("GetListOfCourses", lst);
+                return View("GetListOfCourses", courseregistermodel);
+            }
+            else if (result == -2)
+            {
+                ViewBag.Message = "Sorry no more seats are available for this course...";
+                return View("GetListOfCourses", courseregistermodel);
             }
             else
             {
@@ -117,7 +86,7 @@ namespace Training_Management_System.Controllers
             int usrId = 0;
             int.TryParse(Session["user_id"].ToString(), out usrId);
             training_management_systemEntities entities = new training_management_systemEntities();
-            course_registration_view_model crvm;
+            CourseRegisterModel crvm;
             var model =from course_management in entities.course_management
                 join class_management in entities.class_management
                     on course_management.course_id equals class_management.course_id
@@ -133,18 +102,17 @@ namespace Training_Management_System.Controllers
                     course_duration = course_management.course_duration,
                     class_id = class_management.class_id,
                     class_name = class_management.class_name,
-                    class_start_date = class_management.class_start_date,
-                    class_end_date = class_management.class_end_date,
+                    class_start_date = class_management.class_start_date.ToString(),
+                    class_end_date = class_management.class_end_date.ToString(),
                     available_seats = class_management.available_seats,
-                    is_registration_active = class_management.is_registration_active,
-                    manager_id = course_registration.manager_id
+                    is_registration_active = class_management.is_registration_active
                 };
             
-            List<course_registration_view_model> lst = new List<course_registration_view_model>();
+            List<CourseRegisterModel> lst = new List<CourseRegisterModel>();
 
             foreach (var item in model)
             {
-                crvm = new course_registration_view_model();
+                crvm = new CourseRegisterModel();
                 crvm.course_id = item.course_id;
                 crvm.course_name = item.course_name;
                 crvm.course_type = item.course_type;

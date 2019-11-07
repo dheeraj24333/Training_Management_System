@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Training_Management_System.Classes;
 using Training_Management_System.Models;
 
 namespace Training_Management_System.Controllers
@@ -19,7 +20,8 @@ namespace Training_Management_System.Controllers
         [HttpPost]
         public ActionResult LoginPageView(LoginPageModel LoginDataObject)
         {
-            int result = LoginDataObject.LoginCheck();
+            LoginProcess loginprocess = new LoginProcess();
+            int result = loginprocess.LoginCheck(LoginDataObject);
 
             if (result == 0)
                 return RedirectToAction("ChangePassword");
@@ -39,7 +41,8 @@ namespace Training_Management_System.Controllers
         [HttpPost]
         public ActionResult ChangePassword(LoginPageModel LoginDataObject)
         {
-            bool flag = LoginDataObject.ChangePassword();
+            LoginProcess loginprocess = new LoginProcess();
+            bool flag = loginprocess.ChangePassword(LoginDataObject);
             if (flag == true)
                 return RedirectToAction("FirstTimeProfile");
             else
@@ -63,7 +66,8 @@ namespace Training_Management_System.Controllers
         [HttpPost]
         public ActionResult FirstTimeProfile(LoginPageModel LoginDataObject)
         {
-            Boolean flag = LoginDataObject.SaveProfile();
+            LoginProcess loginprocess = new LoginProcess();
+            Boolean flag = loginprocess.SaveProfile(LoginDataObject);
             if (flag == true)
                 return RedirectToAction("LoginPageView");
             else
