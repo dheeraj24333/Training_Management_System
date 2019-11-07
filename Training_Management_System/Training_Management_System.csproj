@@ -129,52 +129,56 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="attendance.cs">
-      <DependentUpon>TMS.tt</DependentUpon>
+      <DependentUpon>training_management_system.tt</DependentUpon>
+    </Compile>
+    <Compile Include="calender_events.cs">
+      <DependentUpon>training_management_system.tt</DependentUpon>
     </Compile>
     <Compile Include="Classes\CourseRegistration.cs" />
+    <Compile Include="Classes\LoginProcess.cs" />
     <Compile Include="Classes\UserProfileDataRetrival.cs" />
     <Compile Include="class_management.cs">
-      <DependentUpon>TMS.tt</DependentUpon>
+      <DependentUpon>training_management_system.tt</DependentUpon>
     </Compile>
     <Compile Include="company_employee.cs">
-      <DependentUpon>TMS.tt</DependentUpon>
+      <DependentUpon>training_management_system.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="course_management.cs">
-      <DependentUpon>TMS.tt</DependentUpon>
+      <DependentUpon>training_management_system.tt</DependentUpon>
     </Compile>
     <Compile Include="course_registration.cs">
-      <DependentUpon>TMS.tt</DependentUpon>
+      <DependentUpon>training_management_system.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="instructor.cs">
-      <DependentUpon>TMS.tt</DependentUpon>
+      <DependentUpon>training_management_system.tt</DependentUpon>
     </Compile>
     <Compile Include="manager.cs">
-      <DependentUpon>TMS.tt</DependentUpon>
+      <DependentUpon>training_management_system.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\course_registration_view_model.cs" />
+    <Compile Include="Models\CourseRegisterModel.cs" />
     <Compile Include="Models\LoginPageModel.cs" />
     <Compile Include="Models\UserProfileModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TMS.Context.cs">
+    <Compile Include="training_management_system.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TMS.Context.tt</DependentUpon>
+      <DependentUpon>training_management_system.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="TMS.cs">
+    <Compile Include="training_management_system.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TMS.tt</DependentUpon>
+      <DependentUpon>training_management_system.tt</DependentUpon>
     </Compile>
-    <Compile Include="TMS.Designer.cs">
+    <Compile Include="training_management_system.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>TMS.edmx</DependentUpon>
+      <DependentUpon>training_management_system.edmx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -202,15 +206,15 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\UserImages\communitybrands_logo.png" />
     <Content Include="Scripts\UserImages\logo2.png" />
-    <Content Include="TMS.Context.tt">
+    <Content Include="training_management_system.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>TMS.Context.cs</LastGenOutput>
-      <DependentUpon>TMS.edmx</DependentUpon>
+      <DependentUpon>training_management_system.edmx</DependentUpon>
+      <LastGenOutput>training_management_system.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="TMS.tt">
+    <Content Include="training_management_system.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>TMS.edmx</DependentUpon>
-      <LastGenOutput>TMS.cs</LastGenOutput>
+      <DependentUpon>training_management_system.edmx</DependentUpon>
+      <LastGenOutput>training_management_system.cs</LastGenOutput>
     </Content>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -225,13 +229,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <EntityDeploy Include="TMS.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>TMS.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="TMS.edmx.diagram">
-      <DependentUpon>TMS.edmx</DependentUpon>
-    </Content>
     <Content Include="Views\Login\ChangePassword.cshtml" />
     <Content Include="Views\Login\FirstTimeProfile.cshtml" />
     <Content Include="Views\Login\LoginPageView.cshtml" />
@@ -239,6 +236,13 @@
     <Content Include="Views\Shared\ViewProfile.cshtml" />
     <Content Include="Views\Course\GetListOfCourses.cshtml" />
     <Content Include="Views\Course\MyCourses.cshtml" />
+    <EntityDeploy Include="training_management_system.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>training_management_system.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="training_management_system.edmx.diagram">
+      <DependentUpon>training_management_system.edmx</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -12,12 +12,17 @@ namespace Training_Management_System
     using System;
     using System.Collections.Generic;
     
-    public partial class course_registration
+    public partial class calender_events
     {
-        public int registration_id { get; set; }
+        public int event_id { get; set; }
         public Nullable<int> user_id { get; set; }
         public Nullable<int> class_id { get; set; }
-        public string status { get; set; }
+        public string subject { get; set; }
+        public string description { get; set; }
+        public Nullable<System.DateTime> class_start_date { get; set; }
+        public Nullable<System.DateTime> class_end_date { get; set; }
+        public string themecolor { get; set; }
+        public Nullable<bool> isfullday { get; set; }
     
         public virtual class_management class_management { get; set; }
         public virtual company_employee company_employee { get; set; }

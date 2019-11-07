@@ -18,6 +18,7 @@ namespace Training_Management_System
         public class_management()
         {
             this.attendances = new HashSet<attendance>();
+            this.calender_events = new HashSet<calender_events>();
             this.course_registration = new HashSet<course_registration>();
         }
     
@@ -30,9 +31,13 @@ namespace Training_Management_System
         public Nullable<int> max_seats { get; set; }
         public Nullable<int> available_seats { get; set; }
         public string is_registration_active { get; set; }
+        public Nullable<System.TimeSpan> start_time { get; set; }
+        public Nullable<System.TimeSpan> end_time { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<attendance> attendances { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<calender_events> calender_events { get; set; }
         public virtual instructor instructor { get; set; }
         public virtual course_management course_management { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

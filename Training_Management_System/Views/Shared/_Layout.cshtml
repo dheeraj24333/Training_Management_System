@@ -87,9 +87,8 @@
                         @* @Html.ActionLink("Dashboard ", "Dashboard", "Login", new { htmlAttributes = new { @class = "dropbtn" } }, new { @style = "color:black;font-size:20px;" })
                         *@
                         <div class="dropdown-content">
-                            @Html.ActionLink("My Calender ", "Profiles", "Login")
+                            <a href="@Url.Action("Dashboard", "Dashboard")">My Calender</a>
                             <a id="profileViewBtn" data-target="#myModal" data-toggle="modal">My Profile</a>
-                            @*@Html.ActionLink("View Profile ", "Profiles", "Login")*@
                         </div>
                     </div>
                 </li>
@@ -97,7 +96,7 @@
                     <div class="dropdown" style="margin-left:15px;">
                         <span class="dropbtn">Courses</span>
                         <div class="dropdown-content">
-                            <a href="@Url.Action("GetListOfCourses", "Course")">Upcomming Trainings</a>
+                            <a href="@Url.Action("GetListOfCourses", "Course")">Upcoming Trainings</a>
                             <a href="@Url.Action("MyCourses", "Course")">My Trainings</a>
                         </div>
                     </div>
@@ -105,10 +104,6 @@
 
 
             </ul>
-            @*<ul class="nav navbar-nav navbar-right" style="margin-top:15px;font-size:15px;">
-                    <li><i class="fa fa-fw fa-sign-out"></i><a href="@Url.Action("Logout", "Login")">Logout</a></li>
-                    <li><i class="fas fa-user"></i><a href="@Url.Action("FirstTimeProfiles", "Login")">@HttpContext.Current.Session["username"].ToString()</a></li>
-                </ul>*@
 
             <div class="nav navbar-nav navbar-right" style="margin-top:15px;font-size:15px;  margin-right:-60px;">
                 <i class="fa fa-sign-out" style="float:right;"> <a href="@Url.Action("Logout", "Login")" , style="margin-left:10px;"><i>Logout</i></a></i> <br />

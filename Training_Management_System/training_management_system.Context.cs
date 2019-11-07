@@ -26,6 +26,7 @@ namespace Training_Management_System
         }
     
         public virtual DbSet<attendance> attendances { get; set; }
+        public virtual DbSet<calender_events> calender_events { get; set; }
         public virtual DbSet<class_management> class_management { get; set; }
         public virtual DbSet<company_employee> company_employee { get; set; }
         public virtual DbSet<course_management> course_management { get; set; }
