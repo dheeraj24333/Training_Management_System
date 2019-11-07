@@ -98,6 +98,22 @@
           <Property Name="user_id" Type="int" />
           <Property Name="manager_name" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="notification">
+          <Key>
+            <PropertyRef Name="not_id" />
+          </Key>
+          <Property Name="not_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="notice" Type="nvarchar" MaxLength="1000" />
+          <Property Name="tilldate" Type="date" />
+        </EntityType>
+        <EntityType Name="notification_seen">
+          <Key>
+            <PropertyRef Name="seen_id" />
+          </Key>
+          <Property Name="seen_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="not_id" Type="int" />
+          <Property Name="user_id" Type="int" />
+        </EntityType>
         <Association Name="FK__attendanc__class__5EBF139D">
           <End Role="class_management" Type="Self.class_management" Multiplicity="0..1" />
           <End Role="attendance" Type="Self.attendance" Multiplicity="*" />
@@ -206,6 +222,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__notificat__not_i__17F790F9">
+          <End Role="notification" Type="Self.notification" Multiplicity="0..1" />
+          <End Role="notification_seen" Type="Self.notification_seen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="notification">
+              <PropertyRef Name="not_id" />
+            </Principal>
+            <Dependent Role="notification_seen">
+              <PropertyRef Name="not_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__notificat__user___18EBB532">
+          <End Role="company_employee" Type="Self.company_employee" Multiplicity="0..1" />
+          <End Role="notification_seen" Type="Self.notification_seen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="company_employee">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="notification_seen">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="training_management_systemModelStoreContainer">
           <EntitySet Name="attendance" EntityType="Self.attendance" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="calender_events" EntityType="Self.calender_events" Schema="dbo" store:Type="Tables" />
@@ -215,6 +255,8 @@
           <EntitySet Name="course_registration" EntityType="Self.course_registration" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="instructor" EntityType="Self.instructor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="manager" EntityType="Self.manager" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="notification" EntityType="Self.notification" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="notification_seen" EntityType="Self.notification_seen" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__attendanc__class__5EBF139D" Association="Self.FK__attendanc__class__5EBF139D">
             <End Role="class_management" EntitySet="class_management" />
             <End Role="attendance" EntitySet="attendance" />
@@ -250,6 +292,14 @@
           <AssociationSet Name="FK__course_re__user___02FC7413" Association="Self.FK__course_re__user___02FC7413">
             <End Role="company_employee" EntitySet="company_employee" />
             <End Role="course_registration" EntitySet="course_registration" />
+          </AssociationSet>
+          <AssociationSet Name="FK__notificat__not_i__17F790F9" Association="Self.FK__notificat__not_i__17F790F9">
+            <End Role="notification" EntitySet="notification" />
+            <End Role="notification_seen" EntitySet="notification_seen" />
+          </AssociationSet>
+          <AssociationSet Name="FK__notificat__user___18EBB532" Association="Self.FK__notificat__user___18EBB532">
+            <End Role="company_employee" EntitySet="company_employee" />
+            <End Role="notification_seen" EntitySet="notification_seen" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -323,6 +373,7 @@
           <NavigationProperty Name="calender_events" Relationship="Self.FK__calender___user___72C60C4A" FromRole="company_employee" ToRole="calender_events" />
           <NavigationProperty Name="manager" Relationship="Self.FK__company_e__manag__4BAC3F29" FromRole="company_employee" ToRole="manager" />
           <NavigationProperty Name="course_registration" Relationship="Self.FK__course_re__user___02FC7413" FromRole="company_employee" ToRole="course_registration" />
+          <NavigationProperty Name="notification_seen" Relationship="training_management_systemModel.FK__notificat__user___18EBB532" FromRole="company_employee" ToRole="notification_seen" />
         </EntityType>
         <EntityType Name="course_management">
           <Key>
@@ -520,7 +571,60 @@
             <End Role="company_employee" EntitySet="company_employee" />
             <End Role="course_registration" EntitySet="course_registration" />
           </AssociationSet>
+          <EntitySet Name="notifications" EntityType="training_management_systemModel.notification" />
+          <EntitySet Name="notification_seen" EntityType="training_management_systemModel.notification_seen" />
+          <AssociationSet Name="FK__notificat__user___18EBB532" Association="training_management_systemModel.FK__notificat__user___18EBB532">
+            <End Role="company_employee" EntitySet="company_employee" />
+            <End Role="notification_seen" EntitySet="notification_seen" />
+          </AssociationSet>
+          <AssociationSet Name="FK__notificat__not_i__17F790F9" Association="training_management_systemModel.FK__notificat__not_i__17F790F9">
+            <End Role="notification" EntitySet="notifications" />
+            <End Role="notification_seen" EntitySet="notification_seen" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="notification">
+          <Key>
+            <PropertyRef Name="not_id" />
+          </Key>
+          <Property Name="not_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="notice" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="tilldate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="notification_seen" Relationship="training_management_systemModel.FK__notificat__not_i__17F790F9" FromRole="notification" ToRole="notification_seen" />
+        </EntityType>
+        <EntityType Name="notification_seen">
+          <Key>
+            <PropertyRef Name="seen_id" />
+          </Key>
+          <Property Name="seen_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="not_id" Type="Int32" />
+          <Property Name="user_id" Type="Int32" />
+          <NavigationProperty Name="company_employee" Relationship="training_management_systemModel.FK__notificat__user___18EBB532" FromRole="notification_seen" ToRole="company_employee" />
+          <NavigationProperty Name="notification" Relationship="training_management_systemModel.FK__notificat__not_i__17F790F9" FromRole="notification_seen" ToRole="notification" />
+        </EntityType>
+        <Association Name="FK__notificat__user___18EBB532">
+          <End Type="training_management_systemModel.company_employee" Role="company_employee" Multiplicity="0..1" />
+          <End Type="training_management_systemModel.notification_seen" Role="notification_seen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="company_employee">
+              <PropertyRef Name="user_id" />
+            </Principal>
+            <Dependent Role="notification_seen">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__notificat__not_i__17F790F9">
+          <End Type="training_management_systemModel.notification" Role="notification" Multiplicity="0..1" />
+          <End Type="training_management_systemModel.notification_seen" Role="notification_seen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="notification">
+              <PropertyRef Name="not_id" />
+            </Principal>
+            <Dependent Role="notification_seen">
+              <PropertyRef Name="not_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -625,6 +729,24 @@
                 <ScalarProperty Name="manager_id" ColumnName="manager_id" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="manager_name" ColumnName="manager_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="notifications">
+            <EntityTypeMapping TypeName="training_management_systemModel.notification">
+              <MappingFragment StoreEntitySet="notification">
+                <ScalarProperty Name="tilldate" ColumnName="tilldate" />
+                <ScalarProperty Name="notice" ColumnName="notice" />
+                <ScalarProperty Name="not_id" ColumnName="not_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="notification_seen">
+            <EntityTypeMapping TypeName="training_management_systemModel.notification_seen">
+              <MappingFragment StoreEntitySet="notification_seen">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="not_id" ColumnName="not_id" />
+                <ScalarProperty Name="seen_id" ColumnName="seen_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

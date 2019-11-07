@@ -22,6 +22,10 @@
         <AssociationConnector Association="training_management_systemModel.FK__course_re__class__03F0984C" ManuallyRouted="false" />
         <AssociationConnector Association="training_management_systemModel.FK__company_e__manag__4BAC3F29" ManuallyRouted="false" />
         <AssociationConnector Association="training_management_systemModel.FK__course_re__user___02FC7413" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="training_management_systemModel.notification" Width="1.5" PointX="3" PointY="14" />
+        <EntityTypeShape EntityType="training_management_systemModel.notification_seen" Width="1.5" PointX="5.25" PointY="9.875" />
+        <AssociationConnector Association="training_management_systemModel.FK__notificat__user___18EBB532" />
+        <AssociationConnector Association="training_management_systemModel.FK__notificat__not_i__17F790F9" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
