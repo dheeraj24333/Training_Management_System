@@ -12,8 +12,12 @@ namespace Training_Management_System.Controllers
     {
         // GET: Login
         [HttpGet]
-        public ActionResult LoginPageView()
+        public ActionResult LoginPageView(int check=0)
         {
+            if (check == 1)
+            {
+                ViewBag.Message = "Invalid Username or Password";
+            }
             return View();
         }
 
@@ -27,8 +31,10 @@ namespace Training_Management_System.Controllers
                 return RedirectToAction("ChangePassword");
             else if (result == 1)
                 return RedirectToAction("Dashboard", "Dashboard");
-            else
-                return RedirectToAction("error");
+            else {
+                return RedirectToAction("LoginPageView",new { check=1});
+            }
+                
             
         }
 
