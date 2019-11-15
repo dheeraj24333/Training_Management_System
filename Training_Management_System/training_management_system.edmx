@@ -4,16 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="training_management_systemModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="attendance">
-          <Key>
-            <PropertyRef Name="attendance_id" />
-          </Key>
-          <Property Name="attendance_id" Type="int" Nullable="false" />
-          <Property Name="user_id" Type="int" />
-          <Property Name="class_id" Type="int" />
-          <Property Name="present_date" Type="date" />
-        </EntityType>
+      <Schema Namespace="training_management_systemModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="8.0" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="calender_events">
           <Key>
             <PropertyRef Name="event_id" />
@@ -21,11 +12,11 @@
           <Property Name="event_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="user_id" Type="int" />
           <Property Name="class_id" Type="int" />
-          <Property Name="subject" Type="nvarchar" MaxLength="100" />
-          <Property Name="description" Type="nvarchar" MaxLength="200" />
+          <Property Name="subject" Type="varchar" MaxLength="100" />
+          <Property Name="description" Type="varchar" MaxLength="200" />
           <Property Name="class_start_date" Type="date" />
           <Property Name="class_end_date" Type="date" />
-          <Property Name="themecolor" Type="nvarchar" MaxLength="50" />
+          <Property Name="themecolor" Type="varchar" MaxLength="50" />
           <Property Name="isfullday" Type="bit" />
         </EntityType>
         <EntityType Name="class_management">
@@ -35,40 +26,40 @@
           <Property Name="class_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="course_id" Type="int" />
           <Property Name="class_instructor_id" Type="int" />
-          <Property Name="class_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="class_name" Type="varchar" MaxLength="50" />
           <Property Name="class_start_date" Type="date" />
           <Property Name="class_end_date" Type="date" />
           <Property Name="max_seats" Type="int" />
           <Property Name="available_seats" Type="int" />
-          <Property Name="is_registration_active" Type="nvarchar" MaxLength="10" />
-          <Property Name="start_time" Type="time" Precision="7" />
-          <Property Name="end_time" Type="time" Precision="7" />
+          <Property Name="is_registration_active" Type="varchar" MaxLength="10" />
+          <Property Name="start_time" Type="time" Precision="5" />
+          <Property Name="end_time" Type="time" Precision="5" />
         </EntityType>
         <EntityType Name="company_employee">
           <Key>
             <PropertyRef Name="user_id" />
           </Key>
           <Property Name="user_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="username" Type="nvarchar" MaxLength="100" />
-          <Property Name="password" Type="nvarchar" MaxLength="50" />
-          <Property Name="user_full_name" Type="nvarchar" MaxLength="50" />
-          <Property Name="user_title" Type="nvarchar" MaxLength="50" />
-          <Property Name="user_department" Type="nvarchar" MaxLength="50" />
+          <Property Name="username" Type="varchar" MaxLength="100" />
+          <Property Name="password" Type="varchar" MaxLength="50" />
+          <Property Name="user_full_name" Type="varchar" MaxLength="50" />
+          <Property Name="user_title" Type="varchar" MaxLength="50" />
+          <Property Name="user_department" Type="varchar" MaxLength="50" />
           <Property Name="manager_id" Type="int" />
           <Property Name="date_of_joining" Type="date" />
-          <Property Name="is_admin" Type="nvarchar" MaxLength="20" />
-          <Property Name="is_manager" Type="nvarchar" MaxLength="20" />
-          <Property Name="is_instructor" Type="nvarchar" MaxLength="20" />
+          <Property Name="is_admin" Type="varchar" MaxLength="20" />
+          <Property Name="is_manager" Type="varchar" MaxLength="20" />
+          <Property Name="is_instructor" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="course_management">
           <Key>
             <PropertyRef Name="course_id" />
           </Key>
           <Property Name="course_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="course_name" Type="nvarchar" MaxLength="70" />
-          <Property Name="course_type" Type="nvarchar" MaxLength="70" />
-          <Property Name="course_category" Type="nvarchar" MaxLength="70" />
-          <Property Name="course_description" Type="nvarchar" MaxLength="300" />
+          <Property Name="course_name" Type="varchar" MaxLength="70" />
+          <Property Name="course_type" Type="varchar" MaxLength="70" />
+          <Property Name="course_category" Type="varchar" MaxLength="70" />
+          <Property Name="course_description" Type="varchar" MaxLength="300" />
           <Property Name="course_duration" Type="int" />
         </EntityType>
         <EntityType Name="course_registration">
@@ -78,32 +69,24 @@
           <Property Name="registration_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="user_id" Type="int" />
           <Property Name="class_id" Type="int" />
-          <Property Name="status" Type="nvarchar" MaxLength="20" />
+          <Property Name="status" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="instructor">
           <Key>
             <PropertyRef Name="instructor_id" />
           </Key>
           <Property Name="instructor_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="instructor_name" Type="nvarchar" MaxLength="50" />
-          <Property Name="instructor_type" Type="nvarchar" MaxLength="50" />
-          <Property Name="instructor_contact" Type="nvarchar" MaxLength="10" />
-          <Property Name="additional_details" Type="nvarchar" MaxLength="200" />
-        </EntityType>
-        <EntityType Name="manager">
-          <Key>
-            <PropertyRef Name="manager_id" />
-          </Key>
-          <Property Name="manager_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="user_id" Type="int" />
-          <Property Name="manager_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="instructor_name" Type="varchar" MaxLength="50" />
+          <Property Name="instructor_type" Type="varchar" MaxLength="50" />
+          <Property Name="instructor_contact" Type="varchar" MaxLength="10" />
+          <Property Name="additional_details" Type="varchar" MaxLength="200" />
         </EntityType>
         <EntityType Name="notification">
           <Key>
             <PropertyRef Name="not_id" />
           </Key>
           <Property Name="not_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="notice" Type="nvarchar" MaxLength="1000" />
+          <Property Name="notice" Type="varchar" MaxLength="1000" />
           <Property Name="tilldate" Type="date" />
         </EntityType>
         <EntityType Name="notification_seen">
@@ -114,43 +97,7 @@
           <Property Name="not_id" Type="int" />
           <Property Name="user_id" Type="int" />
         </EntityType>
-        <Association Name="FK__attendanc__class__5EBF139D">
-          <End Role="class_management" Type="Self.class_management" Multiplicity="0..1" />
-          <End Role="attendance" Type="Self.attendance" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="class_management">
-              <PropertyRef Name="class_id" />
-            </Principal>
-            <Dependent Role="attendance">
-              <PropertyRef Name="class_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__attendanc__user___5DCAEF64">
-          <End Role="company_employee" Type="Self.company_employee" Multiplicity="0..1" />
-          <End Role="attendance" Type="Self.attendance" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="company_employee">
-              <PropertyRef Name="user_id" />
-            </Principal>
-            <Dependent Role="attendance">
-              <PropertyRef Name="user_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__calender___class__73BA3083">
-          <End Role="class_management" Type="Self.class_management" Multiplicity="0..1" />
-          <End Role="calender_events" Type="Self.calender_events" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="class_management">
-              <PropertyRef Name="class_id" />
-            </Principal>
-            <Dependent Role="calender_events">
-              <PropertyRef Name="class_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__calender___user___72C60C4A">
+        <Association Name="calender_events_ibfk_1">
           <End Role="company_employee" Type="Self.company_employee" Multiplicity="0..1" />
           <End Role="calender_events" Type="Self.calender_events" Multiplicity="*" />
           <ReferentialConstraint>
@@ -162,7 +109,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__class_man__class__534D60F1">
+        <Association Name="class_management_ibfk_1">
           <End Role="instructor" Type="Self.instructor" Multiplicity="0..1" />
           <End Role="class_management" Type="Self.class_management" Multiplicity="*" />
           <ReferentialConstraint>
@@ -174,7 +121,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__class_man__cours__52593CB8">
+        <Association Name="class_management_ibfk_2">
           <End Role="course_management" Type="Self.course_management" Multiplicity="0..1" />
           <End Role="class_management" Type="Self.class_management" Multiplicity="*" />
           <ReferentialConstraint>
@@ -186,31 +133,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__company_e__manag__4BAC3F29">
-          <End Role="manager" Type="Self.manager" Multiplicity="0..1" />
-          <End Role="company_employee" Type="Self.company_employee" Multiplicity="*" />
+        <Association Name="company_employee_ibfk_1">
+          <End Role="company_employee" Type="Self.company_employee" Multiplicity="0..1" />
+          <End Role="company_employee1" Type="Self.company_employee" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="manager">
-              <PropertyRef Name="manager_id" />
+            <Principal Role="company_employee">
+              <PropertyRef Name="user_id" />
             </Principal>
-            <Dependent Role="company_employee">
+            <Dependent Role="company_employee1">
               <PropertyRef Name="manager_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__course_re__class__03F0984C">
-          <End Role="class_management" Type="Self.class_management" Multiplicity="0..1" />
-          <End Role="course_registration" Type="Self.course_registration" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="class_management">
-              <PropertyRef Name="class_id" />
-            </Principal>
-            <Dependent Role="course_registration">
-              <PropertyRef Name="class_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__course_re__user___02FC7413">
+        <Association Name="course_registration_ibfk_1">
           <End Role="company_employee" Type="Self.company_employee" Multiplicity="0..1" />
           <End Role="course_registration" Type="Self.course_registration" Multiplicity="*" />
           <ReferentialConstraint>
@@ -222,7 +157,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__notificat__not_i__17F790F9">
+        <Association Name="course_registration_ibfk_2">
+          <End Role="class_management" Type="Self.class_management" Multiplicity="0..1" />
+          <End Role="course_registration" Type="Self.course_registration" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="class_management">
+              <PropertyRef Name="class_id" />
+            </Principal>
+            <Dependent Role="course_registration">
+              <PropertyRef Name="class_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="notification_seen_ibfk_1">
           <End Role="notification" Type="Self.notification" Multiplicity="0..1" />
           <End Role="notification_seen" Type="Self.notification_seen" Multiplicity="*" />
           <ReferentialConstraint>
@@ -234,7 +181,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__notificat__user___18EBB532">
+        <Association Name="notification_seen_ibfk_2">
           <End Role="company_employee" Type="Self.company_employee" Multiplicity="0..1" />
           <End Role="notification_seen" Type="Self.notification_seen" Multiplicity="*" />
           <ReferentialConstraint>
@@ -247,76 +194,52 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="training_management_systemModelStoreContainer">
-          <EntitySet Name="attendance" EntityType="Self.attendance" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="calender_events" EntityType="Self.calender_events" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="class_management" EntityType="Self.class_management" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="company_employee" EntityType="Self.company_employee" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="course_management" EntityType="Self.course_management" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="course_registration" EntityType="Self.course_registration" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="instructor" EntityType="Self.instructor" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="manager" EntityType="Self.manager" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="notification" EntityType="Self.notification" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="notification_seen" EntityType="Self.notification_seen" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__attendanc__class__5EBF139D" Association="Self.FK__attendanc__class__5EBF139D">
-            <End Role="class_management" EntitySet="class_management" />
-            <End Role="attendance" EntitySet="attendance" />
-          </AssociationSet>
-          <AssociationSet Name="FK__attendanc__user___5DCAEF64" Association="Self.FK__attendanc__user___5DCAEF64">
-            <End Role="company_employee" EntitySet="company_employee" />
-            <End Role="attendance" EntitySet="attendance" />
-          </AssociationSet>
-          <AssociationSet Name="FK__calender___class__73BA3083" Association="Self.FK__calender___class__73BA3083">
-            <End Role="class_management" EntitySet="class_management" />
-            <End Role="calender_events" EntitySet="calender_events" />
-          </AssociationSet>
-          <AssociationSet Name="FK__calender___user___72C60C4A" Association="Self.FK__calender___user___72C60C4A">
+          <EntitySet Name="calender_events" EntityType="Self.calender_events" Schema="training_management_system" store:Type="Tables" />
+          <EntitySet Name="class_management" EntityType="Self.class_management" Schema="training_management_system" store:Type="Tables" />
+          <EntitySet Name="company_employee" EntityType="Self.company_employee" Schema="training_management_system" store:Type="Tables" />
+          <EntitySet Name="course_management" EntityType="Self.course_management" Schema="training_management_system" store:Type="Tables" />
+          <EntitySet Name="course_registration" EntityType="Self.course_registration" Schema="training_management_system" store:Type="Tables" />
+          <EntitySet Name="instructor" EntityType="Self.instructor" Schema="training_management_system" store:Type="Tables" />
+          <EntitySet Name="notification" EntityType="Self.notification" Schema="training_management_system" store:Type="Tables" />
+          <EntitySet Name="notification_seen" EntityType="Self.notification_seen" Schema="training_management_system" store:Type="Tables" />
+          <AssociationSet Name="calender_events_ibfk_1" Association="Self.calender_events_ibfk_1">
             <End Role="company_employee" EntitySet="company_employee" />
             <End Role="calender_events" EntitySet="calender_events" />
           </AssociationSet>
-          <AssociationSet Name="FK__class_man__class__534D60F1" Association="Self.FK__class_man__class__534D60F1">
+          <AssociationSet Name="class_management_ibfk_1" Association="Self.class_management_ibfk_1">
             <End Role="instructor" EntitySet="instructor" />
             <End Role="class_management" EntitySet="class_management" />
           </AssociationSet>
-          <AssociationSet Name="FK__class_man__cours__52593CB8" Association="Self.FK__class_man__cours__52593CB8">
+          <AssociationSet Name="class_management_ibfk_2" Association="Self.class_management_ibfk_2">
             <End Role="course_management" EntitySet="course_management" />
             <End Role="class_management" EntitySet="class_management" />
           </AssociationSet>
-          <AssociationSet Name="FK__company_e__manag__4BAC3F29" Association="Self.FK__company_e__manag__4BAC3F29">
-            <End Role="manager" EntitySet="manager" />
+          <AssociationSet Name="company_employee_ibfk_1" Association="Self.company_employee_ibfk_1">
             <End Role="company_employee" EntitySet="company_employee" />
+            <End Role="company_employee1" EntitySet="company_employee" />
           </AssociationSet>
-          <AssociationSet Name="FK__course_re__class__03F0984C" Association="Self.FK__course_re__class__03F0984C">
+          <AssociationSet Name="course_registration_ibfk_1" Association="Self.course_registration_ibfk_1">
+            <End Role="company_employee" EntitySet="company_employee" />
+            <End Role="course_registration" EntitySet="course_registration" />
+          </AssociationSet>
+          <AssociationSet Name="course_registration_ibfk_2" Association="Self.course_registration_ibfk_2">
             <End Role="class_management" EntitySet="class_management" />
             <End Role="course_registration" EntitySet="course_registration" />
           </AssociationSet>
-          <AssociationSet Name="FK__course_re__user___02FC7413" Association="Self.FK__course_re__user___02FC7413">
-            <End Role="company_employee" EntitySet="company_employee" />
-            <End Role="course_registration" EntitySet="course_registration" />
-          </AssociationSet>
-          <AssociationSet Name="FK__notificat__not_i__17F790F9" Association="Self.FK__notificat__not_i__17F790F9">
+          <AssociationSet Name="notification_seen_ibfk_1" Association="Self.notification_seen_ibfk_1">
             <End Role="notification" EntitySet="notification" />
             <End Role="notification_seen" EntitySet="notification_seen" />
           </AssociationSet>
-          <AssociationSet Name="FK__notificat__user___18EBB532" Association="Self.FK__notificat__user___18EBB532">
+          <AssociationSet Name="notification_seen_ibfk_2" Association="Self.notification_seen_ibfk_2">
             <End Role="company_employee" EntitySet="company_employee" />
             <End Role="notification_seen" EntitySet="notification_seen" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="training_management_systemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="attendance">
-          <Key>
-            <PropertyRef Name="attendance_id" />
-          </Key>
-          <Property Name="attendance_id" Type="Int32" Nullable="false" />
-          <Property Name="user_id" Type="Int32" />
-          <Property Name="class_id" Type="Int32" />
-          <Property Name="present_date" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="class_management" Relationship="Self.FK__attendanc__class__5EBF139D" FromRole="attendance" ToRole="class_management" />
-          <NavigationProperty Name="company_employee" Relationship="Self.FK__attendanc__user___5DCAEF64" FromRole="attendance" ToRole="company_employee" />
-        </EntityType>
         <EntityType Name="calender_events">
           <Key>
             <PropertyRef Name="event_id" />
@@ -324,14 +247,13 @@
           <Property Name="event_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="user_id" Type="Int32" />
           <Property Name="class_id" Type="Int32" />
-          <Property Name="subject" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="class_start_date" Type="DateTime" Precision="0" />
-          <Property Name="class_end_date" Type="DateTime" Precision="0" />
-          <Property Name="themecolor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="subject" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="class_start_date" Type="DateTime" />
+          <Property Name="class_end_date" Type="DateTime" />
+          <Property Name="themecolor" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="isfullday" Type="Boolean" />
-          <NavigationProperty Name="class_management" Relationship="Self.FK__calender___class__73BA3083" FromRole="calender_events" ToRole="class_management" />
-          <NavigationProperty Name="company_employee" Relationship="Self.FK__calender___user___72C60C4A" FromRole="calender_events" ToRole="company_employee" />
+          <NavigationProperty Name="company_employee" Relationship="Self.calender_events_ibfk_1" FromRole="calender_events" ToRole="company_employee" />
         </EntityType>
         <EntityType Name="class_management">
           <Key>
@@ -340,52 +262,50 @@
           <Property Name="class_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="course_id" Type="Int32" />
           <Property Name="class_instructor_id" Type="Int32" />
-          <Property Name="class_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="class_start_date" Type="DateTime" Precision="0" />
-          <Property Name="class_end_date" Type="DateTime" Precision="0" />
+          <Property Name="class_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="class_start_date" Type="DateTime" />
+          <Property Name="class_end_date" Type="DateTime" />
           <Property Name="max_seats" Type="Int32" />
           <Property Name="available_seats" Type="Int32" />
-          <Property Name="is_registration_active" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="attendances" Relationship="Self.FK__attendanc__class__5EBF139D" FromRole="class_management" ToRole="attendance" />
-          <NavigationProperty Name="calender_events" Relationship="Self.FK__calender___class__73BA3083" FromRole="class_management" ToRole="calender_events" />
-          <NavigationProperty Name="instructor" Relationship="Self.FK__class_man__class__534D60F1" FromRole="class_management" ToRole="instructor" />
-          <NavigationProperty Name="course_management" Relationship="Self.FK__class_man__cours__52593CB8" FromRole="class_management" ToRole="course_management" />
-          <NavigationProperty Name="course_registration" Relationship="Self.FK__course_re__class__03F0984C" FromRole="class_management" ToRole="course_registration" />
-          <Property Name="start_time" Type="Time" Precision="7" />
-          <Property Name="end_time" Type="Time" Precision="7" />
+          <Property Name="is_registration_active" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="start_time" Type="Time" />
+          <Property Name="end_time" Type="Time" />
+          <NavigationProperty Name="instructor" Relationship="Self.class_management_ibfk_1" FromRole="class_management" ToRole="instructor" />
+          <NavigationProperty Name="course_management" Relationship="Self.class_management_ibfk_2" FromRole="class_management" ToRole="course_management" />
+          <NavigationProperty Name="course_registration" Relationship="Self.course_registration_ibfk_2" FromRole="class_management" ToRole="course_registration" />
         </EntityType>
         <EntityType Name="company_employee">
           <Key>
             <PropertyRef Name="user_id" />
           </Key>
           <Property Name="user_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="username" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="user_full_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="user_title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="user_department" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="username" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="user_full_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="user_title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="user_department" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="manager_id" Type="Int32" />
-          <Property Name="date_of_joining" Type="DateTime" Precision="0" />
-          <Property Name="is_admin" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="is_manager" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="is_instructor" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="attendances" Relationship="Self.FK__attendanc__user___5DCAEF64" FromRole="company_employee" ToRole="attendance" />
-          <NavigationProperty Name="calender_events" Relationship="Self.FK__calender___user___72C60C4A" FromRole="company_employee" ToRole="calender_events" />
-          <NavigationProperty Name="manager" Relationship="Self.FK__company_e__manag__4BAC3F29" FromRole="company_employee" ToRole="manager" />
-          <NavigationProperty Name="course_registration" Relationship="Self.FK__course_re__user___02FC7413" FromRole="company_employee" ToRole="course_registration" />
-          <NavigationProperty Name="notification_seen" Relationship="training_management_systemModel.FK__notificat__user___18EBB532" FromRole="company_employee" ToRole="notification_seen" />
+          <Property Name="date_of_joining" Type="DateTime" />
+          <Property Name="is_admin" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="is_manager" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="is_instructor" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="calender_events" Relationship="Self.calender_events_ibfk_1" FromRole="company_employee" ToRole="calender_events" />
+          <NavigationProperty Name="company_employee1" Relationship="Self.company_employee_ibfk_1" FromRole="company_employee" ToRole="company_employee1" />
+          <NavigationProperty Name="company_employee2" Relationship="Self.company_employee_ibfk_1" FromRole="company_employee1" ToRole="company_employee" />
+          <NavigationProperty Name="course_registration" Relationship="Self.course_registration_ibfk_1" FromRole="company_employee" ToRole="course_registration" />
+          <NavigationProperty Name="notification_seen" Relationship="Self.notification_seen_ibfk_2" FromRole="company_employee" ToRole="notification_seen" />
         </EntityType>
         <EntityType Name="course_management">
           <Key>
             <PropertyRef Name="course_id" />
           </Key>
           <Property Name="course_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="course_name" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
-          <Property Name="course_type" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
-          <Property Name="course_category" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
-          <Property Name="course_description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="course_name" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="course_type" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="course_category" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="course_description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="course_duration" Type="Int32" />
-          <NavigationProperty Name="class_management" Relationship="Self.FK__class_man__cours__52593CB8" FromRole="course_management" ToRole="class_management" />
+          <NavigationProperty Name="class_management" Relationship="Self.class_management_ibfk_2" FromRole="course_management" ToRole="class_management" />
         </EntityType>
         <EntityType Name="course_registration">
           <Key>
@@ -394,67 +314,41 @@
           <Property Name="registration_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="user_id" Type="Int32" />
           <Property Name="class_id" Type="Int32" />
-          <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="class_management" Relationship="Self.FK__course_re__class__03F0984C" FromRole="course_registration" ToRole="class_management" />
-          <NavigationProperty Name="company_employee" Relationship="Self.FK__course_re__user___02FC7413" FromRole="course_registration" ToRole="company_employee" />
+          <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="class_management" Relationship="Self.course_registration_ibfk_2" FromRole="course_registration" ToRole="class_management" />
+          <NavigationProperty Name="company_employee" Relationship="Self.course_registration_ibfk_1" FromRole="course_registration" ToRole="company_employee" />
         </EntityType>
         <EntityType Name="instructor">
           <Key>
             <PropertyRef Name="instructor_id" />
           </Key>
           <Property Name="instructor_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="instructor_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="instructor_type" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="instructor_contact" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="additional_details" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="class_management" Relationship="Self.FK__class_man__class__534D60F1" FromRole="instructor" ToRole="class_management" />
+          <Property Name="instructor_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="instructor_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="instructor_contact" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="additional_details" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="class_management" Relationship="Self.class_management_ibfk_1" FromRole="instructor" ToRole="class_management" />
         </EntityType>
-        <EntityType Name="manager">
+        <EntityType Name="notification">
           <Key>
-            <PropertyRef Name="manager_id" />
+            <PropertyRef Name="not_id" />
           </Key>
-          <Property Name="manager_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="user_id" Type="Int32" />
-          <Property Name="manager_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="company_employee" Relationship="Self.FK__company_e__manag__4BAC3F29" FromRole="manager" ToRole="company_employee" />
+          <Property Name="not_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="notice" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="tilldate" Type="DateTime" />
+          <NavigationProperty Name="notification_seen" Relationship="Self.notification_seen_ibfk_1" FromRole="notification" ToRole="notification_seen" />
         </EntityType>
-        <Association Name="FK__attendanc__class__5EBF139D">
-          <End Role="class_management" Type="Self.class_management" Multiplicity="0..1" />
-          <End Role="attendance" Type="Self.attendance" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="class_management">
-              <PropertyRef Name="class_id" />
-            </Principal>
-            <Dependent Role="attendance">
-              <PropertyRef Name="class_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__attendanc__user___5DCAEF64">
-          <End Role="company_employee" Type="Self.company_employee" Multiplicity="0..1" />
-          <End Role="attendance" Type="Self.attendance" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="company_employee">
-              <PropertyRef Name="user_id" />
-            </Principal>
-            <Dependent Role="attendance">
-              <PropertyRef Name="user_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__calender___class__73BA3083">
-          <End Role="class_management" Type="Self.class_management" Multiplicity="0..1" />
-          <End Role="calender_events" Type="Self.calender_events" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="class_management">
-              <PropertyRef Name="class_id" />
-            </Principal>
-            <Dependent Role="calender_events">
-              <PropertyRef Name="class_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__calender___user___72C60C4A">
+        <EntityType Name="notification_seen">
+          <Key>
+            <PropertyRef Name="seen_id" />
+          </Key>
+          <Property Name="seen_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="not_id" Type="Int32" />
+          <Property Name="user_id" Type="Int32" />
+          <NavigationProperty Name="company_employee" Relationship="Self.notification_seen_ibfk_2" FromRole="notification_seen" ToRole="company_employee" />
+          <NavigationProperty Name="notification" Relationship="Self.notification_seen_ibfk_1" FromRole="notification_seen" ToRole="notification" />
+        </EntityType>
+        <Association Name="calender_events_ibfk_1">
           <End Role="company_employee" Type="Self.company_employee" Multiplicity="0..1" />
           <End Role="calender_events" Type="Self.calender_events" Multiplicity="*" />
           <ReferentialConstraint>
@@ -466,7 +360,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__class_man__class__534D60F1">
+        <Association Name="class_management_ibfk_1">
           <End Role="instructor" Type="Self.instructor" Multiplicity="0..1" />
           <End Role="class_management" Type="Self.class_management" Multiplicity="*" />
           <ReferentialConstraint>
@@ -478,7 +372,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__class_man__cours__52593CB8">
+        <Association Name="class_management_ibfk_2">
           <End Role="course_management" Type="Self.course_management" Multiplicity="0..1" />
           <End Role="class_management" Type="Self.class_management" Multiplicity="*" />
           <ReferentialConstraint>
@@ -490,7 +384,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__course_re__class__03F0984C">
+        <Association Name="course_registration_ibfk_2">
           <End Role="class_management" Type="Self.class_management" Multiplicity="0..1" />
           <End Role="course_registration" Type="Self.course_registration" Multiplicity="*" />
           <ReferentialConstraint>
@@ -502,19 +396,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__company_e__manag__4BAC3F29">
-          <End Role="manager" Type="Self.manager" Multiplicity="0..1" />
-          <End Role="company_employee" Type="Self.company_employee" Multiplicity="*" />
+        <Association Name="company_employee_ibfk_1">
+          <End Role="company_employee" Type="Self.company_employee" Multiplicity="0..1" />
+          <End Role="company_employee1" Type="Self.company_employee" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="manager">
-              <PropertyRef Name="manager_id" />
+            <Principal Role="company_employee">
+              <PropertyRef Name="user_id" />
             </Principal>
-            <Dependent Role="company_employee">
+            <Dependent Role="company_employee1">
               <PropertyRef Name="manager_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__course_re__user___02FC7413">
+        <Association Name="course_registration_ibfk_1">
           <End Role="company_employee" Type="Self.company_employee" Multiplicity="0..1" />
           <End Role="course_registration" Type="Self.course_registration" Multiplicity="*" />
           <ReferentialConstraint>
@@ -526,84 +420,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="training_management_systemEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="attendances" EntityType="Self.attendance" />
-          <EntitySet Name="calender_events" EntityType="Self.calender_events" />
-          <EntitySet Name="class_management" EntityType="Self.class_management" />
-          <EntitySet Name="company_employee" EntityType="Self.company_employee" />
-          <EntitySet Name="course_management" EntityType="Self.course_management" />
-          <EntitySet Name="course_registration" EntityType="Self.course_registration" />
-          <EntitySet Name="instructors" EntityType="Self.instructor" />
-          <EntitySet Name="managers" EntityType="Self.manager" />
-          <AssociationSet Name="FK__attendanc__class__5EBF139D" Association="Self.FK__attendanc__class__5EBF139D">
-            <End Role="class_management" EntitySet="class_management" />
-            <End Role="attendance" EntitySet="attendances" />
-          </AssociationSet>
-          <AssociationSet Name="FK__attendanc__user___5DCAEF64" Association="Self.FK__attendanc__user___5DCAEF64">
-            <End Role="company_employee" EntitySet="company_employee" />
-            <End Role="attendance" EntitySet="attendances" />
-          </AssociationSet>
-          <AssociationSet Name="FK__calender___class__73BA3083" Association="Self.FK__calender___class__73BA3083">
-            <End Role="class_management" EntitySet="class_management" />
-            <End Role="calender_events" EntitySet="calender_events" />
-          </AssociationSet>
-          <AssociationSet Name="FK__calender___user___72C60C4A" Association="Self.FK__calender___user___72C60C4A">
-            <End Role="company_employee" EntitySet="company_employee" />
-            <End Role="calender_events" EntitySet="calender_events" />
-          </AssociationSet>
-          <AssociationSet Name="FK__class_man__class__534D60F1" Association="Self.FK__class_man__class__534D60F1">
-            <End Role="instructor" EntitySet="instructors" />
-            <End Role="class_management" EntitySet="class_management" />
-          </AssociationSet>
-          <AssociationSet Name="FK__class_man__cours__52593CB8" Association="Self.FK__class_man__cours__52593CB8">
-            <End Role="course_management" EntitySet="course_management" />
-            <End Role="class_management" EntitySet="class_management" />
-          </AssociationSet>
-          <AssociationSet Name="FK__course_re__class__03F0984C" Association="Self.FK__course_re__class__03F0984C">
-            <End Role="class_management" EntitySet="class_management" />
-            <End Role="course_registration" EntitySet="course_registration" />
-          </AssociationSet>
-          <AssociationSet Name="FK__company_e__manag__4BAC3F29" Association="Self.FK__company_e__manag__4BAC3F29">
-            <End Role="manager" EntitySet="managers" />
-            <End Role="company_employee" EntitySet="company_employee" />
-          </AssociationSet>
-          <AssociationSet Name="FK__course_re__user___02FC7413" Association="Self.FK__course_re__user___02FC7413">
-            <End Role="company_employee" EntitySet="company_employee" />
-            <End Role="course_registration" EntitySet="course_registration" />
-          </AssociationSet>
-          <EntitySet Name="notifications" EntityType="training_management_systemModel.notification" />
-          <EntitySet Name="notification_seen" EntityType="training_management_systemModel.notification_seen" />
-          <AssociationSet Name="FK__notificat__user___18EBB532" Association="training_management_systemModel.FK__notificat__user___18EBB532">
-            <End Role="company_employee" EntitySet="company_employee" />
-            <End Role="notification_seen" EntitySet="notification_seen" />
-          </AssociationSet>
-          <AssociationSet Name="FK__notificat__not_i__17F790F9" Association="training_management_systemModel.FK__notificat__not_i__17F790F9">
-            <End Role="notification" EntitySet="notifications" />
-            <End Role="notification_seen" EntitySet="notification_seen" />
-          </AssociationSet>
-        </EntityContainer>
-        <EntityType Name="notification">
-          <Key>
-            <PropertyRef Name="not_id" />
-          </Key>
-          <Property Name="not_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="notice" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="tilldate" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="notification_seen" Relationship="training_management_systemModel.FK__notificat__not_i__17F790F9" FromRole="notification" ToRole="notification_seen" />
-        </EntityType>
-        <EntityType Name="notification_seen">
-          <Key>
-            <PropertyRef Name="seen_id" />
-          </Key>
-          <Property Name="seen_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="not_id" Type="Int32" />
-          <Property Name="user_id" Type="Int32" />
-          <NavigationProperty Name="company_employee" Relationship="training_management_systemModel.FK__notificat__user___18EBB532" FromRole="notification_seen" ToRole="company_employee" />
-          <NavigationProperty Name="notification" Relationship="training_management_systemModel.FK__notificat__not_i__17F790F9" FromRole="notification_seen" ToRole="notification" />
-        </EntityType>
-        <Association Name="FK__notificat__user___18EBB532">
-          <End Type="training_management_systemModel.company_employee" Role="company_employee" Multiplicity="0..1" />
-          <End Type="training_management_systemModel.notification_seen" Role="notification_seen" Multiplicity="*" />
+        <Association Name="notification_seen_ibfk_2">
+          <End Role="company_employee" Type="Self.company_employee" Multiplicity="0..1" />
+          <End Role="notification_seen" Type="Self.notification_seen" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="company_employee">
               <PropertyRef Name="user_id" />
@@ -613,9 +432,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__notificat__not_i__17F790F9">
-          <End Type="training_management_systemModel.notification" Role="notification" Multiplicity="0..1" />
-          <End Type="training_management_systemModel.notification_seen" Role="notification_seen" Multiplicity="*" />
+        <Association Name="notification_seen_ibfk_1">
+          <End Role="notification" Type="Self.notification" Multiplicity="0..1" />
+          <End Role="notification_seen" Type="Self.notification_seen" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="notification">
               <PropertyRef Name="not_id" />
@@ -625,22 +444,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityContainer Name="training_management_systemEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="calender_events" EntityType="Self.calender_events" />
+          <EntitySet Name="class_management" EntityType="Self.class_management" />
+          <EntitySet Name="company_employee" EntityType="Self.company_employee" />
+          <EntitySet Name="course_management" EntityType="Self.course_management" />
+          <EntitySet Name="course_registration" EntityType="Self.course_registration" />
+          <EntitySet Name="instructors" EntityType="Self.instructor" />
+          <EntitySet Name="notifications" EntityType="Self.notification" />
+          <EntitySet Name="notification_seen" EntityType="Self.notification_seen" />
+          <AssociationSet Name="calender_events_ibfk_1" Association="Self.calender_events_ibfk_1">
+            <End Role="company_employee" EntitySet="company_employee" />
+            <End Role="calender_events" EntitySet="calender_events" />
+          </AssociationSet>
+          <AssociationSet Name="class_management_ibfk_1" Association="Self.class_management_ibfk_1">
+            <End Role="instructor" EntitySet="instructors" />
+            <End Role="class_management" EntitySet="class_management" />
+          </AssociationSet>
+          <AssociationSet Name="class_management_ibfk_2" Association="Self.class_management_ibfk_2">
+            <End Role="course_management" EntitySet="course_management" />
+            <End Role="class_management" EntitySet="class_management" />
+          </AssociationSet>
+          <AssociationSet Name="course_registration_ibfk_2" Association="Self.course_registration_ibfk_2">
+            <End Role="class_management" EntitySet="class_management" />
+            <End Role="course_registration" EntitySet="course_registration" />
+          </AssociationSet>
+          <AssociationSet Name="company_employee_ibfk_1" Association="Self.company_employee_ibfk_1">
+            <End Role="company_employee" EntitySet="company_employee" />
+            <End Role="company_employee1" EntitySet="company_employee" />
+          </AssociationSet>
+          <AssociationSet Name="course_registration_ibfk_1" Association="Self.course_registration_ibfk_1">
+            <End Role="company_employee" EntitySet="company_employee" />
+            <End Role="course_registration" EntitySet="course_registration" />
+          </AssociationSet>
+          <AssociationSet Name="notification_seen_ibfk_2" Association="Self.notification_seen_ibfk_2">
+            <End Role="company_employee" EntitySet="company_employee" />
+            <End Role="notification_seen" EntitySet="notification_seen" />
+          </AssociationSet>
+          <AssociationSet Name="notification_seen_ibfk_1" Association="Self.notification_seen_ibfk_1">
+            <End Role="notification" EntitySet="notifications" />
+            <End Role="notification_seen" EntitySet="notification_seen" />
+          </AssociationSet>
+        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="training_management_systemModelStoreContainer" CdmEntityContainer="training_management_systemEntities">
-          <EntitySetMapping Name="attendances">
-            <EntityTypeMapping TypeName="training_management_systemModel.attendance">
-              <MappingFragment StoreEntitySet="attendance">
-                <ScalarProperty Name="attendance_id" ColumnName="attendance_id" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="class_id" ColumnName="class_id" />
-                <ScalarProperty Name="present_date" ColumnName="present_date" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="calender_events">
             <EntityTypeMapping TypeName="training_management_systemModel.calender_events">
               <MappingFragment StoreEntitySet="calender_events">
@@ -659,8 +510,6 @@
           <EntitySetMapping Name="class_management">
             <EntityTypeMapping TypeName="training_management_systemModel.class_management">
               <MappingFragment StoreEntitySet="class_management">
-                <ScalarProperty Name="end_time" ColumnName="end_time" />
-                <ScalarProperty Name="start_time" ColumnName="start_time" />
                 <ScalarProperty Name="class_id" ColumnName="class_id" />
                 <ScalarProperty Name="course_id" ColumnName="course_id" />
                 <ScalarProperty Name="class_instructor_id" ColumnName="class_instructor_id" />
@@ -670,6 +519,8 @@
                 <ScalarProperty Name="max_seats" ColumnName="max_seats" />
                 <ScalarProperty Name="available_seats" ColumnName="available_seats" />
                 <ScalarProperty Name="is_registration_active" ColumnName="is_registration_active" />
+                <ScalarProperty Name="start_time" ColumnName="start_time" />
+                <ScalarProperty Name="end_time" ColumnName="end_time" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -723,30 +574,21 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="managers">
-            <EntityTypeMapping TypeName="training_management_systemModel.manager">
-              <MappingFragment StoreEntitySet="manager">
-                <ScalarProperty Name="manager_id" ColumnName="manager_id" />
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="manager_name" ColumnName="manager_name" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="notifications">
             <EntityTypeMapping TypeName="training_management_systemModel.notification">
               <MappingFragment StoreEntitySet="notification">
-                <ScalarProperty Name="tilldate" ColumnName="tilldate" />
-                <ScalarProperty Name="notice" ColumnName="notice" />
                 <ScalarProperty Name="not_id" ColumnName="not_id" />
+                <ScalarProperty Name="notice" ColumnName="notice" />
+                <ScalarProperty Name="tilldate" ColumnName="tilldate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="notification_seen">
             <EntityTypeMapping TypeName="training_management_systemModel.notification_seen">
               <MappingFragment StoreEntitySet="notification_seen">
-                <ScalarProperty Name="user_id" ColumnName="user_id" />
-                <ScalarProperty Name="not_id" ColumnName="not_id" />
                 <ScalarProperty Name="seen_id" ColumnName="seen_id" />
+                <ScalarProperty Name="not_id" ColumnName="not_id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

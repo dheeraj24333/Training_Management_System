@@ -101,7 +101,7 @@
 
                                     @foreach (CourseRegisterModel item in Model.CourseRegisterModel)
                                     {
-                                        if (Convert.ToDateTime(item.class_start_date) > DateTime.Today)
+                                        if (Convert.ToDateTime(item.class_end_date) > DateTime.Today)
                                         {
                                             <tr>
                                                 <td>

@@ -24,7 +24,7 @@ namespace Training_Management_System.Models
         public string ManagerId { get; set; }
 
 
-        public int manager_id { get; set; }
+        public Nullable<int> manager_id { get; set; }
         public Nullable<int> user_id { get; set; }
         public string manager_name { get; set; }
 

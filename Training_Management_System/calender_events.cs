@@ -24,7 +24,6 @@ namespace Training_Management_System
         public string themecolor { get; set; }
         public Nullable<bool> isfullday { get; set; }
     
-        public virtual class_management class_management { get; set; }
         public virtual company_employee company_employee { get; set; }
     }
 }
