@@ -65,14 +65,17 @@ namespace Training_Management_System.Classes
 
             }
             training_management_systemEntities entities = new training_management_systemEntities();
-            company_employee emp = entities.company_employee.SingleOrDefault(e => e.user_id == Session_id);
+            company_employee emp = entities.company_employee.SingleOrDefault(e => e.user_id == Session_id );
 
             if (emp != null)
             {
                 emp.user_full_name = LoginDataObject.FullName;
                 emp.user_title = LoginDataObject.Title;
                 emp.user_department = LoginDataObject.Department;
-                emp.manager_id = Convert.ToInt32(LoginDataObject.ManagerId);
+                if (LoginDataObject.ManagerId == "None")
+                    emp.manager_id = null;
+                else
+                    emp.manager_id = Convert.ToInt32(LoginDataObject.ManagerId);
                 emp.date_of_joining = LoginDataObject.Date_Of_Joining;
                 entities.SaveChanges();
                 return true;

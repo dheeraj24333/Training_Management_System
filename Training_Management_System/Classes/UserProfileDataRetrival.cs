@@ -24,11 +24,14 @@ namespace Training_Management_System.Classes
 
             company_employee emp = entities.company_employee.SingleOrDefault(e => e.user_id == Session_id);
             if (emp != null) {
-                var model = entities.managers.SingleOrDefault(e => e.manager_id == emp.manager_id);
+                var model = entities.company_employee.SingleOrDefault(e => e.user_id == emp.manager_id);
                 userprofilemodelobject.FullName = emp.user_full_name;
                 userprofilemodelobject.Title = emp.user_title ;
                 userprofilemodelobject.Department = emp.user_department;
-                userprofilemodelobject.manager_name = model.manager_name;
+                if (model != null)
+                    userprofilemodelobject.manager_name = model.user_full_name;
+                else
+                    userprofilemodelobject.manager_name = "---";
                 userprofilemodelobject.Date_Of_Joining = Convert.ToDateTime( emp.date_of_joining);
             }
             return userprofilemodelobject;

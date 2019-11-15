@@ -17,8 +17,8 @@ namespace Training_Management_System
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public company_employee()
         {
-            this.attendances = new HashSet<attendance>();
             this.calender_events = new HashSet<calender_events>();
+            this.company_employee1 = new HashSet<company_employee>();
             this.course_registration = new HashSet<course_registration>();
             this.notification_seen = new HashSet<notification_seen>();
         }
@@ -36,10 +36,10 @@ namespace Training_Management_System
         public string is_instructor { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<attendance> attendances { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<calender_events> calender_events { get; set; }
-        public virtual manager manager { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<company_employee> company_employee1 { get; set; }
+        public virtual company_employee company_employee2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<course_registration> course_registration { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

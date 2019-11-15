@@ -64,7 +64,9 @@ namespace Training_Management_System.Controllers
             }
             else
             {
-                return View();
+                LoginPageModel loginPageModel = new LoginPageModel();
+                loginPageModel.user_id = Convert.ToInt32(Session["user_id"].ToString());
+                return View(loginPageModel);
             }
                 
         }

@@ -25,14 +25,12 @@ namespace Training_Management_System
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<attendance> attendances { get; set; }
         public virtual DbSet<calender_events> calender_events { get; set; }
         public virtual DbSet<class_management> class_management { get; set; }
         public virtual DbSet<company_employee> company_employee { get; set; }
         public virtual DbSet<course_management> course_management { get; set; }
         public virtual DbSet<course_registration> course_registration { get; set; }
         public virtual DbSet<instructor> instructors { get; set; }
-        public virtual DbSet<manager> managers { get; set; }
         public virtual DbSet<notification> notifications { get; set; }
         public virtual DbSet<notification_seen> notification_seen { get; set; }
     }
