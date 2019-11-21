@@ -32,8 +32,6 @@ namespace Training_Management_System
         public Nullable<System.TimeSpan> start_time { get; set; }
         public Nullable<System.TimeSpan> end_time { get; set; }
     
-        public virtual instructor instructor { get; set; }
-        public virtual course_management course_management { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<course_registration> course_registration { get; set; }
     }

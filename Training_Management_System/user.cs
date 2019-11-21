@@ -12,13 +12,12 @@ namespace Training_Management_System
     using System;
     using System.Collections.Generic;
     
-    public partial class course_management
+    public partial class user
     {
-        public int course_id { get; set; }
-        public string course_name { get; set; }
-        public string course_type { get; set; }
-        public string course_category { get; set; }
-        public string course_description { get; set; }
-        public Nullable<int> course_duration { get; set; }
+        public int user_id { get; set; }
+        public string user_name { get; set; }
+        public string password { get; set; }
+        public Nullable<bool> enabled { get; set; }
+        public string authority { get; set; }
     }
 }

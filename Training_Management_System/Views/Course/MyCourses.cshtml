@@ -51,36 +51,46 @@
 
                         </tr>
                     </thead>
-
-                    @foreach (var item in Model)
+                    @if (!Model.Any())
                     {
                         <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.course_name)
+                            <td colspan="4">
+                                <h3>No records found...</h3>
                             </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.course_type)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.course_category)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.course_duration)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.class_name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.class_start_date)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.class_end_date)
-                            </td>
-
                         </tr>
                     }
+                    else
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.course_name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.course_type)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.course_category)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.course_duration)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.class_name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.class_start_date)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.class_end_date)
+                                </td>
 
-                </table>
+                            </tr>
+                        }
+                    }
+
+                    </table>
             </div>
         </div>
 

@@ -32,8 +32,8 @@
           <Property Name="max_seats" Type="int" />
           <Property Name="available_seats" Type="int" />
           <Property Name="is_registration_active" Type="varchar" MaxLength="10" />
-          <Property Name="start_time" Type="time" Precision="5" />
-          <Property Name="end_time" Type="time" Precision="5" />
+          <Property Name="start_time" Type="time" Precision="6" />
+          <Property Name="end_time" Type="time" Precision="6" />
         </EntityType>
         <EntityType Name="company_employee">
           <Key>
@@ -66,7 +66,7 @@
           <Key>
             <PropertyRef Name="registration_id" />
           </Key>
-          <Property Name="registration_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="registration_id" Type="int" Nullable="false" />
           <Property Name="user_id" Type="int" />
           <Property Name="class_id" Type="int" />
           <Property Name="status" Type="varchar" MaxLength="20" />
@@ -86,7 +86,7 @@
             <PropertyRef Name="not_id" />
           </Key>
           <Property Name="not_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="notice" Type="varchar" MaxLength="1000" />
+          <Property Name="notice" Type="varchar" MaxLength="300" />
           <Property Name="tilldate" Type="date" />
         </EntityType>
         <EntityType Name="notification_seen">
@@ -97,6 +97,16 @@
           <Property Name="not_id" Type="int" />
           <Property Name="user_id" Type="int" />
         </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="user_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="enabled" Type="bool" />
+          <Property Name="authority" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <Association Name="calender_events_ibfk_1">
           <End Role="company_employee" Type="Self.company_employee" Multiplicity="0..1" />
           <End Role="calender_events" Type="Self.calender_events" Multiplicity="*" />
@@ -106,30 +116,6 @@
             </Principal>
             <Dependent Role="calender_events">
               <PropertyRef Name="user_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="class_management_ibfk_1">
-          <End Role="instructor" Type="Self.instructor" Multiplicity="0..1" />
-          <End Role="class_management" Type="Self.class_management" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="instructor">
-              <PropertyRef Name="instructor_id" />
-            </Principal>
-            <Dependent Role="class_management">
-              <PropertyRef Name="class_instructor_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="class_management_ibfk_2">
-          <End Role="course_management" Type="Self.course_management" Multiplicity="0..1" />
-          <End Role="class_management" Type="Self.class_management" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="course_management">
-              <PropertyRef Name="course_id" />
-            </Principal>
-            <Dependent Role="class_management">
-              <PropertyRef Name="course_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -202,17 +188,10 @@
           <EntitySet Name="instructor" EntityType="Self.instructor" Schema="training_management_system" store:Type="Tables" />
           <EntitySet Name="notification" EntityType="Self.notification" Schema="training_management_system" store:Type="Tables" />
           <EntitySet Name="notification_seen" EntityType="Self.notification_seen" Schema="training_management_system" store:Type="Tables" />
+          <EntitySet Name="user" EntityType="Self.user" Schema="training_management_system" store:Type="Tables" />
           <AssociationSet Name="calender_events_ibfk_1" Association="Self.calender_events_ibfk_1">
             <End Role="company_employee" EntitySet="company_employee" />
             <End Role="calender_events" EntitySet="calender_events" />
-          </AssociationSet>
-          <AssociationSet Name="class_management_ibfk_1" Association="Self.class_management_ibfk_1">
-            <End Role="instructor" EntitySet="instructor" />
-            <End Role="class_management" EntitySet="class_management" />
-          </AssociationSet>
-          <AssociationSet Name="class_management_ibfk_2" Association="Self.class_management_ibfk_2">
-            <End Role="course_management" EntitySet="course_management" />
-            <End Role="class_management" EntitySet="class_management" />
           </AssociationSet>
           <AssociationSet Name="company_employee_ibfk_1" Association="Self.company_employee_ibfk_1">
             <End Role="company_employee" EntitySet="company_employee" />
@@ -270,8 +249,6 @@
           <Property Name="is_registration_active" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="start_time" Type="Time" />
           <Property Name="end_time" Type="Time" />
-          <NavigationProperty Name="instructor" Relationship="Self.class_management_ibfk_1" FromRole="class_management" ToRole="instructor" />
-          <NavigationProperty Name="course_management" Relationship="Self.class_management_ibfk_2" FromRole="class_management" ToRole="course_management" />
           <NavigationProperty Name="course_registration" Relationship="Self.course_registration_ibfk_2" FromRole="class_management" ToRole="course_registration" />
         </EntityType>
         <EntityType Name="company_employee">
@@ -305,13 +282,12 @@
           <Property Name="course_category" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
           <Property Name="course_description" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="course_duration" Type="Int32" />
-          <NavigationProperty Name="class_management" Relationship="Self.class_management_ibfk_2" FromRole="course_management" ToRole="class_management" />
         </EntityType>
         <EntityType Name="course_registration">
           <Key>
             <PropertyRef Name="registration_id" />
           </Key>
-          <Property Name="registration_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="registration_id" Type="Int32" Nullable="false" />
           <Property Name="user_id" Type="Int32" />
           <Property Name="class_id" Type="Int32" />
           <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
@@ -327,14 +303,13 @@
           <Property Name="instructor_type" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="instructor_contact" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="additional_details" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="class_management" Relationship="Self.class_management_ibfk_1" FromRole="instructor" ToRole="class_management" />
         </EntityType>
         <EntityType Name="notification">
           <Key>
             <PropertyRef Name="not_id" />
           </Key>
           <Property Name="not_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="notice" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="notice" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
           <Property Name="tilldate" Type="DateTime" />
           <NavigationProperty Name="notification_seen" Relationship="Self.notification_seen_ibfk_1" FromRole="notification" ToRole="notification_seen" />
         </EntityType>
@@ -348,6 +323,16 @@
           <NavigationProperty Name="company_employee" Relationship="Self.notification_seen_ibfk_2" FromRole="notification_seen" ToRole="company_employee" />
           <NavigationProperty Name="notification" Relationship="Self.notification_seen_ibfk_1" FromRole="notification_seen" ToRole="notification" />
         </EntityType>
+        <EntityType Name="user">
+          <Key>
+            <PropertyRef Name="user_id" />
+          </Key>
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="user_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="enabled" Type="Boolean" />
+          <Property Name="authority" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
         <Association Name="calender_events_ibfk_1">
           <End Role="company_employee" Type="Self.company_employee" Multiplicity="0..1" />
           <End Role="calender_events" Type="Self.calender_events" Multiplicity="*" />
@@ -357,30 +342,6 @@
             </Principal>
             <Dependent Role="calender_events">
               <PropertyRef Name="user_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="class_management_ibfk_1">
-          <End Role="instructor" Type="Self.instructor" Multiplicity="0..1" />
-          <End Role="class_management" Type="Self.class_management" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="instructor">
-              <PropertyRef Name="instructor_id" />
-            </Principal>
-            <Dependent Role="class_management">
-              <PropertyRef Name="class_instructor_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="class_management_ibfk_2">
-          <End Role="course_management" Type="Self.course_management" Multiplicity="0..1" />
-          <End Role="class_management" Type="Self.class_management" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="course_management">
-              <PropertyRef Name="course_id" />
-            </Principal>
-            <Dependent Role="class_management">
-              <PropertyRef Name="course_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -453,17 +414,10 @@
           <EntitySet Name="instructors" EntityType="Self.instructor" />
           <EntitySet Name="notifications" EntityType="Self.notification" />
           <EntitySet Name="notification_seen" EntityType="Self.notification_seen" />
+          <EntitySet Name="users" EntityType="Self.user" />
           <AssociationSet Name="calender_events_ibfk_1" Association="Self.calender_events_ibfk_1">
             <End Role="company_employee" EntitySet="company_employee" />
             <End Role="calender_events" EntitySet="calender_events" />
-          </AssociationSet>
-          <AssociationSet Name="class_management_ibfk_1" Association="Self.class_management_ibfk_1">
-            <End Role="instructor" EntitySet="instructors" />
-            <End Role="class_management" EntitySet="class_management" />
-          </AssociationSet>
-          <AssociationSet Name="class_management_ibfk_2" Association="Self.class_management_ibfk_2">
-            <End Role="course_management" EntitySet="course_management" />
-            <End Role="class_management" EntitySet="class_management" />
           </AssociationSet>
           <AssociationSet Name="course_registration_ibfk_2" Association="Self.course_registration_ibfk_2">
             <End Role="class_management" EntitySet="class_management" />
@@ -589,6 +543,17 @@
                 <ScalarProperty Name="seen_id" ColumnName="seen_id" />
                 <ScalarProperty Name="not_id" ColumnName="not_id" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="training_management_systemModel.user">
+              <MappingFragment StoreEntitySet="user">
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="user_name" ColumnName="user_name" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="enabled" ColumnName="enabled" />
+                <ScalarProperty Name="authority" ColumnName="authority" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

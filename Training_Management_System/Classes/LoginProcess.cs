@@ -83,5 +83,21 @@ namespace Training_Management_System.Classes
             else
                 return false;
         }
+
+
+
+        public Boolean checkfirsttimeuser(int user_id)
+        {
+            training_management_systemEntities entities = new training_management_systemEntities();
+            company_employee emp = entities.company_employee.SingleOrDefault(e => e.user_id == user_id);
+            if (emp.password.Equals("12345"))
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
+        }
     }
-}

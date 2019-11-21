@@ -34,8 +34,6 @@
 
 <div class="card">
     <div class="container">
-        @if (Model != null)
-        {
             <div class="row">
                 <div class="col-md-12">
                     <h2>Upcoming Trainings</h2>
@@ -62,9 +60,17 @@
                             </tr>
                         </thead>
 
-                        @foreach (var item in Model)
+                        @if (!Model.Any()) {
+                        <tr><td colspan="4">
+                                <h3>No records found...</h3>
+                            </td>
+                        </tr>
+                        }
+                        else {
+                        foreach (var item in Model)
                         {
-                           if (Convert.ToDateTime(item.class_start_date) > DateTime.Today)
+
+                            if (Convert.ToDateTime(item.class_end_date) > DateTime.Today)
                             {
                                 <tr>
                                     <td>
@@ -102,23 +108,11 @@
                             }
 
                         }
+                        }
 
                     </table>
                 </div>
             </div>
-
-
-        }
-        else
-        {
-            <div>
-
-                <h1>No records</h1>
-
-            </div>
-        }
-
-
     </div>
 </div>
 

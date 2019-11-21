@@ -35,197 +35,184 @@
             {
                 if (item.tilldate >= DateTime.Today)
                 {
-                <div class="card">
-                    <div class="container">
-                        <div class="row" style="padding-top:0px;">
-                            <div class=" col-md-11">
-                                <h5>
-                                    @Html.DisplayFor(modelItem => item.notice)
-                                    <span class="badge" style="background:red;">New</span>
-                                </h5>
-                                
+                    <div class="card">
+                        <div class="container">
+                            <div class="row" style="padding-top:0px;">
+                                <div class=" col-md-11">
+                                    <h5>
+                                        @Html.DisplayFor(modelItem => item.notice)
+                                        <span class="badge" style="background:red;">New</span>
+                                    </h5>
+
+
+                                </div>
+
+                                <div class=" col-md-1">
+                                    <h5>
+
+                                        <a href="@Url.Action("isseen", "Dashboard",new { not_id=item.not_id})" style="float:right; font-size : xx-large; color:red;text-decoration: none;"> &times;</a>
+                                    </h5>
+
+                                </div>
+
 
                             </div>
-
-                            <div class=" col-md-1">
-                                <h5>
-                                   
-                                    <a href="@Url.Action("isseen", "Dashboard",new { not_id=item.not_id})" style="float:right; font-size : xx-large; color:red;text-decoration: none;"> &times;</a>
-                                </h5>
-
-                            </div>
-
 
                         </div>
-
                     </div>
-                </div>
                 }
             }
-
-
-
-
-
-
             </br>
         </div>
-                </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="container">
+        <div class="row" style="padding-top:20px;">
+            <div class="col-md-8" id="calender" style="padding:15px 10px 0 0 ; border:double;">
             </div>
+            <div class="col-md-4" id="availablecourses" style="padding:20px 0 0 10px; border:double;float:right;">
+                <h3>Upcoming Trainings</h3>
 
+                <table class="table table-responsive" id="tableid">
+                    <thead>
+                        <tr>
+                            <th>Course Name</th>
+                            <th>Class Name</th>
+                            <th>Start Date </th>
+                            <th>End Date</th>
+                        </tr>
+                    </thead>
 
-
-
-
-            <div class="card">
-                <div class="container">
-                    <div class="row" style="padding-top:20px;">
-                        <div class="col-md-8" id="calender" style="padding:15px 10px 0 0 ; border:double;">
-
-
-                        </div>
-
-
-                        <div class="col-md-4" id="availablecourses" style="padding:20px 0 0 10px; border:double;float:right;">
-                            <h3>Upcoming Trainings</h3>
-                            
-                                <table class="table table-responsive" id="tableid">
-                                    <thead>
-                                        <tr>
-                                            <th>Course Name</th>
-                                            <th>Class Name</th>
-                                            <th>Start Date </th>
-                                            <th>End Date</th>
-                                        </tr>
-                                    </thead>
-
-                                    @foreach (CourseRegisterModel item in Model.CourseRegisterModel)
-                                    {
-                                        if (Convert.ToDateTime(item.class_end_date) > DateTime.Today)
-                                        {
-                                            <tr>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.course_name)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.class_name)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.class_start_date)
-                                                </td>
-                                                <td>
-                                                    @Html.DisplayFor(modelItem => item.class_end_date)
-                                                </td>
-                                            </tr>
-                                        }
-                                    }
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            <a href="@Url.Action("GetListOfCourses", "Course")"> More>>></a>
-                                        </td>
-                                    </tr>
-
-                                </table>
-                            
-
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div id="myModal1" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title"><span id="eventTitle"></span></h4>
-                        </div>
-                        <div class="modal-body">
-                            <p id="pDetails"></p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
-            <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />
-            
-            @section Scripts{
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
-
-                <script>
-                    $(document).ready(function () {
-                        var events = [];
-                        $.ajax({
-                            type: "GET",
-                            url: "/Dashboard/GetEvents",
-                            success: function (data) {
-                                $.each(JSON.parse(data), function (i, v) {
-                                    events.push({
-                                        title: v.coursename,
-                                        classname: v.classname,
-                                        coursename: v.coursename,
-                                        courseduration: v.courseduration,
-                                        start: moment(v.class_start_date),
-                                        end: v.class_end_date != null ? moment(v.class_end_date) : null,
-                                        maxseats: v.maxseats,
-                                        availableseats: v.availableseats,
-                                        color: v.themecolor,
-                                        allDay: v.isfullday
-                                    });
-                                })
-
-                                GenerateCalender(events);
-                            },
-                            error: function (error) {
-                                alert('failed');
-                            }
-                        })
-
-
-
-                        function GenerateCalender(events) {
-                            $('#calender').fullCalendar('destroy');
-                            $('#calender').fullCalendar({
-                                contentHeight: 450,
-                                defaultDate: new Date(),
-                                timeFormat: 'h(:mm)a',
-                                header: {
-                                    left: 'prev,next today',
-                                    center: 'title',
-                                    right: 'month,basicWeek,basicDay,agenda'
-                                },
-                                eventLimit: true,
-                                selectable: true,
-                                eventColor: '#378006',
-
-                                events: events,
-                                eventClick: function (calEvent, jsEvent, view) {
-                                    $('#myModal1 #eventTitle').text(calEvent.coursename + "(" + calEvent.classname + ")");
-                                    var $description = $('<div/>');
-                                    $description.append($('<p/>').html('<b>Class Name :  </b>' + calEvent.classname));
-                                    $description.append($('<p/>').html('<b>Course Name :  </b>' + calEvent.coursename));
-                                    //$description.append($('<p/>').html('<b>Course Duration(in hours) :  </b>' + calEvent.courseduration));
-                                    $description.append($('<p/>').html('<b>Start at :  </b>' + calEvent.start.format("hh:mm a")));
-                                    if (calEvent.end != null) {
-                                        $description.append($('<p/>').html('<b>End at :  </b>' + calEvent.end.format("hh:mm a")));
-                                    }
-                                    //$description.append($('<p/>').html('<b>Maximun Seats :  </b>' + calEvent.maxseats));
-                                    //$description.append($('<p/>').html('<b>Available Seats :  </b>' + calEvent.availableseats));
-                                    $('#myModal1 #pDetails').empty().html($description);
-                                    $('#myModal1').modal();
-                                }
-                            })
+                    @foreach (CourseRegisterModel item in Model.CourseRegisterModel)
+                    {
+                        if (Convert.ToDateTime(item.class_end_date) > DateTime.Today)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.course_name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.class_name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.class_start_date)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.class_end_date)
+                                </td>
+                            </tr>
                         }
+                    }
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <a href="@Url.Action("GetListOfCourses", "Course")"> More>>></a>
+                        </td>
+                    </tr>
+
+                </table>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="myModal1" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><span id="eventTitle"></span></h4>
+            </div>
+            <div class="modal-body">
+                <p id="pDetails"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+         <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.print.css" rel="stylesheet" media="print" />
+
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script> 
+
+    <script>
+        $(document).ready(function () {
+            var events = [];
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("GetEvents", "Dashboard")',
+                success: function (data) {
+                    $.each(JSON.parse(data), function (i, v) {
+                        events.push({
+                            title: v.coursename,
+                            classname: v.classname,
+                            coursename: v.coursename,
+                            courseduration: v.courseduration,
+                            start: moment(v.class_start_date),
+                            end: v.class_end_date != null ? moment(v.class_end_date) : null,
+                            maxseats: v.maxseats,
+                            availableseats: v.availableseats,
+                            color: v.themecolor,
+                            allDay: v.isfullday
+                        });
                     })
-                </script>
+
+                    GenerateCalender(events);
+                },
+                error: function (error) {
+                    alert('failed');
+                }
+            })
+
+
+
+            function GenerateCalender(events) {
+                $('#calender').fullCalendar('destroy');
+                $('#calender').fullCalendar({
+                    contentHeight: 450,
+                    defaultDate: new Date(),
+                    timeFormat: 'h(:mm)a',
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,basicWeek,basicDay,agenda'
+                    },
+                    eventLimit: true,
+                    selectable: true,
+                    eventColor: '#378006',
+
+                    events: events,
+                    eventClick: function (calEvent, jsEvent, view) {
+                        $('#myModal1 #eventTitle').text(calEvent.coursename + "(" + calEvent.classname + ")");
+                        var $description = $('<div/>');
+                        $description.append($('<p/>').html('<b>Class Name :  </b>' + calEvent.classname));
+                        $description.append($('<p/>').html('<b>Course Name :  </b>' + calEvent.coursename));
+                        //$description.append($('<p/>').html('<b>Course Duration(in hours) :  </b>' + calEvent.courseduration));
+                        $description.append($('<p/>').html('<b>Start at :  </b>' + calEvent.start.format("hh:mm a")));
+                        if (calEvent.end != null) {
+                            $description.append($('<p/>').html('<b>End at :  </b>' + calEvent.end.format("hh:mm a")));
+                        }
+                        //$description.append($('<p/>').html('<b>Maximun Seats :  </b>' + calEvent.maxseats));
+                        //$description.append($('<p/>').html('<b>Available Seats :  </b>' + calEvent.availableseats));
+                        $('#myModal1 #pDetails').empty().html($description);
+                        $('#myModal1').modal();
+                    }
+                })
             }
+        })
+    </script>
+}
