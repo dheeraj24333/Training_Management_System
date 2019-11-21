@@ -14,19 +14,10 @@ namespace Training_Management_System
     
     public partial class instructor
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public instructor()
-        {
-            this.class_management = new HashSet<class_management>();
-        }
-    
         public int instructor_id { get; set; }
         public string instructor_name { get; set; }
         public string instructor_type { get; set; }
         public string instructor_contact { get; set; }
         public string additional_details { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<class_management> class_management { get; set; }
     }
 }

@@ -41,7 +41,25 @@ namespace Training_Management_System.Controllers
         [HttpGet]
         public ActionResult ChangePassword()
         {
-            return View();
+            if (Session["user_id"] == null)
+            {
+                return RedirectToAction("LoginPageView");
+            }
+            else {
+                LoginProcess loginprocess = new LoginProcess();
+                bool flag = loginprocess.checkfirsttimeuser(Convert.ToInt32(Session["user_id"].ToString()));
+
+                if (flag) {
+
+                    return RedirectToAction("Dashboard", "Dashboard");
+                }
+                else {
+                    return View();
+                }
+
+                
+            }
+            
         }
 
         [HttpPost]
@@ -50,13 +68,13 @@ namespace Training_Management_System.Controllers
             LoginProcess loginprocess = new LoginProcess();
             bool flag = loginprocess.ChangePassword(LoginDataObject);
             if (flag == true)
-                return RedirectToAction("FirstTimeProfile");
+                return RedirectToAction("FirstTimeProfile", new {id=1 });
             else
                 return RedirectToAction("error");
         }
 
         [HttpGet]
-        public ActionResult FirstTimeProfile()
+        public ActionResult FirstTimeProfile(int id = 0)
         {
             if (Session["user_id"] == null)
             {
@@ -64,9 +82,27 @@ namespace Training_Management_System.Controllers
             }
             else
             {
-                LoginPageModel loginPageModel = new LoginPageModel();
-                loginPageModel.user_id = Convert.ToInt32(Session["user_id"].ToString());
-                return View(loginPageModel);
+                LoginProcess loginprocess = new LoginProcess();
+                bool flag = loginprocess.checkfirsttimeuser(Convert.ToInt32(Session["user_id"].ToString()));
+
+                if (id==0 && flag)
+                {
+                    return RedirectToAction("Dashboard", "Dashboard");
+                }
+                else 
+                {
+                    if (id != 1 && flag) {
+                       
+                        return RedirectToAction("Dashboard", "Dashboard");
+                    }
+                    else
+                    {
+                        LoginPageModel loginPageModel = new LoginPageModel();
+                        loginPageModel.user_id = Convert.ToInt32(Session["user_id"].ToString());
+                        return View(loginPageModel);
+                    }
+                }
+                
             }
                 
         }

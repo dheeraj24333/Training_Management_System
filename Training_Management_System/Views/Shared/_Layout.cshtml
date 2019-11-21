@@ -84,8 +84,6 @@
                 <li>
                     <div class="dropdown">
                         <span class="dropbtn">Dashboard</span>
-                        @* @Html.ActionLink("Dashboard ", "Dashboard", "Login", new { htmlAttributes = new { @class = "dropbtn" } }, new { @style = "color:black;font-size:20px;" })
-                        *@
                         <div class="dropdown-content">
                             <a href="@Url.Action("Dashboard", "Dashboard")">My Calender</a>
                             <a id="profileViewBtn" data-target="#myModal" data-toggle="modal">My Profile</a>
@@ -141,7 +139,7 @@
                     <h4 class="modal-title">My Profile</h4>
                 </div>
                 <div class="modal-body">
-                    <iframe src="http://localhost:63623/Dashboard/ViewProfile" height="400px" width="550px" frameborder="0" ></iframe>
+                    <iframe src="http://localhost/TMS/Dashboard/ViewProfile" height="400px" width="550px" frameborder="0" ></iframe>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
